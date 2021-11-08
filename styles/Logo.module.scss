@@ -1,0 +1,15 @@
+.logo{
+  border-radius: 100%;
+  overflow: hidden;
+  display: flex;
+  width: fit-content;
+  height: fit-content;
+}
+
+.lg{
+    box-shadow: 2.5px 2.5px 5px 0px rgba(0, 0, 0, 0.5);
+}
+
+.sm{
+    box-shadow: 1.25px 1.25px 2.5px 0px rgba(0, 0, 0, 0.5);
+}

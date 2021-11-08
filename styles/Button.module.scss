@@ -1,0 +1,50 @@
+.btn{
+    position: relative;
+    width: 110px;
+    height: 40px;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: 0.2s all;
+    font-weight: 700;
+    overflow: hidden;
+    border: 0;
+    outline: none;
+
+    background-color: #eee;
+    color: #555;
+}
+
+.primary{
+    background: #341671;
+    color: white;
+
+    &:hover {
+        background-color: #422680;
+    }
+}
+
+.outline{
+    background-color: transparent;
+    border: 3px solid #341671;
+    color: #341671;
+
+    &:hover {
+        background-color: #341671;
+        color: #fff;
+    }
+}
+
+.icon{
+    border-radius: 7.5px;
+    display: flex;
+    background-color: transparent;
+    color: #555;
+    width: max-content;
+    height: max-content;
+    padding: 5px 7.5px;
+    cursor: pointer;
+
+    &:hover {
+        color: #444;
+    }
+}

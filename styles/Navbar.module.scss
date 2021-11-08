@@ -1,0 +1,15 @@
+.mainContainer{
+  width: 100%;
+  border-bottom: 1px solid #dfdfdf;
+  height: 85px;
+}
+
+.container{
+  max-width: 1160px;
+  height: 100%;
+  margin: auto;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
