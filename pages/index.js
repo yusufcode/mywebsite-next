@@ -15,7 +15,7 @@ export default function Home() {
 
       <div className={styles.mainContainer}>  
         <div className={styles.container}>
-          <Logo width="225" height="225"/>
+          <Logo width="225" height="225" shadow="lg"/>
         </div>
       </div>
       
