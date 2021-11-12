@@ -1,0 +1,42 @@
+{
+  "polyfillFiles": [
+    "static/chunks/polyfills-5cd94c89d3acac5f.js"
+  ],
+  "devFiles": [],
+  "ampDevFiles": [],
+  "lowPriorityFiles": [
+    "static/V0zNbVoPPjCdGBhXzq1aJ/_buildManifest.js",
+    "static/V0zNbVoPPjCdGBhXzq1aJ/_ssgManifest.js",
+    "static/V0zNbVoPPjCdGBhXzq1aJ/_middlewareManifest.js"
+  ],
+  "pages": {
+    "/": [
+      "static/chunks/webpack-2b99834efceef160.js",
+      "static/chunks/framework-0f8b31729833af61.js",
+      "static/chunks/main-d3f8c9f19d92620b.js",
+      "static/css/8d119b4c13aea89c.css",
+      "static/chunks/pages/index-8ee1d0b1494dc3a0.js"
+    ],
+    "/_app": [
+      "static/chunks/webpack-2b99834efceef160.js",
+      "static/chunks/framework-0f8b31729833af61.js",
+      "static/chunks/main-d3f8c9f19d92620b.js",
+      "static/css/35e94b44a9d47248.css",
+      "static/chunks/pages/_app-b9e9bf2a4fd01818.js"
+    ],
+    "/_error": [
+      "static/chunks/webpack-2b99834efceef160.js",
+      "static/chunks/framework-0f8b31729833af61.js",
+      "static/chunks/main-d3f8c9f19d92620b.js",
+      "static/chunks/pages/_error-2280fa386d040b66.js"
+    ],
+    "/crypto-calculator": [
+      "static/chunks/webpack-2b99834efceef160.js",
+      "static/chunks/framework-0f8b31729833af61.js",
+      "static/chunks/main-d3f8c9f19d92620b.js",
+      "static/css/cc978694bbe11573.css",
+      "static/chunks/pages/crypto-calculator-afdb8369a3af878d.js"
+    ]
+  },
+  "ampFirstPages": []
+}
