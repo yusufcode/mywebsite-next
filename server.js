@@ -14,8 +14,8 @@ app.prepare().then(()=>{
   server.listen(port, (err) => {
     if(err) throw err
     console.log(`SERVER SUCCESS: ${port}`)
-  }).catch((e)=>{
-    console.log(e.stack)
-    process.exit(1)
   })
+}).catch((e)=>{
+  console.log(e.stack)
+  process.exit(1)
 })
