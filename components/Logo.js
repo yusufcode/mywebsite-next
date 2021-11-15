@@ -15,10 +15,11 @@ export default function Logo({width, height, shadow}) {
     return (
         <div className={className}>
             <Image 
-                src="/img/logo/logo-circle.png"
+                src="/img/logo/logo.png"
                 alt="yusufcode.com"
                 width={width} 
                 height={height}
+                quality={10}
             />
         </div>
     )
