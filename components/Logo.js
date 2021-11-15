@@ -15,7 +15,7 @@ export default function Logo({width, height, shadow}) {
     return (
         <div className={className}>
             <Image 
-                src="/img/logo/logo1.png"
+                src="/img/logo/logo-circle.png"
                 alt="yusufcode.com"
                 width={width} 
                 height={height}

@@ -26,7 +26,7 @@ export default function Home() {
           <title>Crypto Calculator - Yusuf Code</title>
           <meta name="description" content="You can calculate your crypto coin gain or lose." />
           <meta name="keywords" content="yusufcode, yusuf code, crypto calculator"></meta>
-          <link rel="icon" href="/img/logo/logo1.png" />
+          <link rel="icon" href="/img/logo/logo-circle.png" />
           <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"></meta>
         </Head>
   
