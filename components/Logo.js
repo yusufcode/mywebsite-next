@@ -2,7 +2,7 @@ import React from 'react'
 import Image from 'next/image'
 import styles from '../styles/Logo.module.scss'
 
-export default function Logo({width, height, shadow}) {
+export default function Logo({width, height, shadow, quality}) {
 
     let className = styles.logo
 
@@ -19,7 +19,7 @@ export default function Logo({width, height, shadow}) {
                 alt="yusufcode.com"
                 width={width} 
                 height={height}
-                quality={10}
+                quality={quality}
             />
         </div>
     )
