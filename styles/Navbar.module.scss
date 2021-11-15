@@ -2,6 +2,7 @@
   width: 100%;
   border-bottom: 1px solid #dfdfdf;
   height: 85px;
+  position: relative;
 }
 
 .container{
@@ -21,14 +22,13 @@
   border-left: 1px solid #dfdfdf;
   position: absolute;
   transform: translateX(30vw);
+  top: 85px;
   right: 0;
-  bottom: 0;
   z-index: 99;
   transition: 0.2s ease-in-out all;
 
   @media(max-width: 768px){
       width: 100vw;
-      top: 85px;
       left: 0;
       right: 0;
       transform: translateX(100vw);
