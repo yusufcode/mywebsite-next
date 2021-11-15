@@ -15,6 +15,7 @@
 }
 
 .menuContainer{
+  display: none;
   width: 30vw;
   height: calc(100vh - 85px);
   background-color: #fff;
@@ -37,6 +38,7 @@
 }
 
 .menuContainerShow{
+  display: block;
   transform: translateX(0vw);
 }
 
