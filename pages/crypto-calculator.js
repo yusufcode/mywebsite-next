@@ -27,6 +27,7 @@ export default function Home() {
           <meta name="description" content="You can calculate your crypto coin gain or lose." />
           <meta name="keywords" content="yusufcode, yusuf code, crypto calculator"></meta>
           <link rel="icon" href="/img/logo/logo1.png" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"></meta>
         </Head>
   
         <div className={styles.mainContainer}>
@@ -34,16 +35,19 @@ export default function Home() {
                 <Input
                     label="Budget"
                     id="budget"
+                    type="number"
                     placeholder="Type your budget"
                 ></Input>
                 <Input
                     label="Starting Price"
                     id="startingPrice"
+                    type="number"
                     placeholder="Cost of the coin when you want to start trade"
                 ></Input>
                 <Input
                     label="Exchange Price"
                     id="exchangePrice"
+                    type="number"
                     placeholder="Cost of the coin when you want to exchange it"
                 ></Input>
 

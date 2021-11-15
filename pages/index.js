@@ -11,6 +11,7 @@ export default function Home() {
         <meta name="description" content="Hello! I'm Yusuf, full-stack web developer." />
         <meta name="keywords" content="yusufcode, yusuf code, web developer, full stack web developer, freelance web developer"></meta>
         <link rel="icon" href="/img/logo/logo1.png" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"></meta>
       </Head>
 
       <div className={styles.mainContainer}>  
