@@ -13,3 +13,51 @@
   justify-content: space-between;
   align-items: center;
 }
+
+.menuContainer{
+  width: 30vw;
+  height: calc(100vh - 85px);
+  background-color: #fff;
+  border-left: 1px solid #dfdfdf;
+  position: absolute;
+  transform: translateX(30vw);
+  right: 0;
+  bottom: 0;
+  z-index: 99;
+  transition: 0.2s ease-in-out all;
+
+  @media(max-width: 768px){
+      width: 100vw;
+      top: 85px;
+      left: 0;
+      right: 0;
+      transform: translateX(100vw);
+      border-left: 0;
+  }
+}
+
+.menuContainerShow{
+  transform: translateX(0vw);
+}
+
+.ul{
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.li{
+  border-bottom: 1px solid #dfdfdf;
+}
+
+.link{
+  display: block;
+  padding: 15px;
+  color: #666;
+  text-decoration: none;
+  transition: 0.1s ease-in-out all;
+
+  &:hover{
+      padding-left: 30px;
+  }
+}

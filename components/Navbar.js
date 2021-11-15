@@ -5,7 +5,6 @@ import Logo from './Logo'
 import {IconButton} from './Button'
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
-import NavbarMenu from './NavbarMenu'
 
 
 export default function Navbar() {
@@ -27,12 +26,19 @@ export default function Navbar() {
         }
         
     }
+
+    const menuItems = [
+        {title: "Home", link: "/"},
+        {title: "Crypto Calculator", link: "crypto-calculator"}
+    ]
+
+    let menuContainerClasses = menu ? `${styles.menuContainer} ${styles.menuContainerShow}` : styles.menuContainer
     
     return (
         <div className={styles.mainContainer}>
             <div className={styles.container}>
-                <Link href="/">
-                    <a>
+                <Link href="/" >
+                    <a onClick={() => closeMenu()}>
                         <Logo width="60" height="60" shadow="sm"/>
                     </a>
                 </Link>
@@ -42,7 +48,19 @@ export default function Navbar() {
                     icon={menu ? <CloseIcon/> : <MenuIcon/>}
                 />
 
-                {menu ? <NavbarMenu onClick={() => closeMenu()}/> : ''}
+                <div className={menuContainerClasses}>
+                    <ul className={styles.ul} onClick={() => closeMenu()}>
+                        {
+                            menuItems.map((item, index) => (
+                                <li key={index} className={styles.li}>
+                                    <Link href={item.link}>
+                                        <a className={styles.link}>{item.title}</a>
+                                    </Link>
+                                </li>
+                            ))
+                        }
+                    </ul>
+                </div>
                 
             </div>
         </div>
