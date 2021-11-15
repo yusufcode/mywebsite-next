@@ -36,19 +36,19 @@ export default function Home() {
                     label="Budget"
                     id="budget"
                     type="number"
-                    placeholder="Type your budget"
+                    placeholder="Type your budget. Exp: 100"
                 ></Input>
                 <Input
                     label="Starting Price"
                     id="startingPrice"
                     type="number"
-                    placeholder="Cost of the coin when you want to start trade"
+                    placeholder="Cost of the coin when you want to start to trade. Exp: 0.5"
                 ></Input>
                 <Input
                     label="Exchange Price"
                     id="exchangePrice"
                     type="number"
-                    placeholder="Cost of the coin when you want to exchange it"
+                    placeholder="Cost of the coin when you want to exchange it. Exp: 0.75"
                 ></Input>
 
                 <PrimaryButton
