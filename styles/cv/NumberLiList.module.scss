@@ -1,0 +1,27 @@
+.list {
+  margin-bottom: 15px;
+}
+
+.list:last-child{
+  margin-bottom: 0;
+}
+
+.listHeader {
+  margin-bottom: 5px;
+}
+
+.listTitle {
+  margin: 0;
+  font-size: 15px;
+}
+
+.listOl {
+  padding-left: 17.5px;
+  margin: 0;
+}
+
+.listLi {
+  font-size: 14px;
+  margin-bottom: 2.5px;
+  padding-left: 2.5px;
+}

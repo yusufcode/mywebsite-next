@@ -20,7 +20,7 @@ export default function Navbar() {
         if(window.innerWidth < 768){
             setTimeout(function (){
                 setMenu(false)
-            }, 400)
+            }, 40)
         } else{
             setMenu(false)
         }
@@ -29,7 +29,8 @@ export default function Navbar() {
 
     const menuItems = [
         {title: "Home", link: "/"},
-        {title: "Crypto Calculator", link: "crypto-calculator"}
+        {title: "Crypto Calculator", link: "crypto-calculator"},
+        {title: "CV (Resume)", link: "cv-resume"}
     ]
 
     let menuContainerClasses = menu ? `${styles.menuContainer} ${styles.menuContainerShow}` : styles.menuContainer
