@@ -9,9 +9,19 @@
     overflow: hidden;
     border: 0;
     outline: none;
+    user-select: none;
 
     background-color: #eee;
     color: #555;
+}
+
+.disabled{
+    background-color: #d5d5d5 !important;
+    pointer-events: none !important;
+
+    &:hover{
+        background-color: #d5d5d5 !important;
+    }
 }
 
 .primary{
@@ -38,13 +48,53 @@
     border-radius: 7.5px;
     display: flex;
     background-color: transparent;
-    color: #555;
     width: max-content;
     height: max-content;
     padding: 5px 7.5px;
     cursor: pointer;
+}
+
+.color{
+    color: #555;
 
     &:hover {
         color: #444;
+    }
+}
+
+.light{
+    color: #d5d5d5;
+
+    &:hover {
+        color: #c5c5c5;
+    }
+}
+
+.white{
+    color: #fff;
+
+    &:hover {
+        color: #e5e5e5;
+    }
+}
+
+.small{
+    font-size: 20px;
+    & svg{
+        font-size: 20px;
+    }
+}
+
+.medium{
+    font-size: 25px;
+    & svg{
+        font-size: 25px;
+    }
+}
+
+.large{
+    font-size: 30px;
+    & svg{
+        font-size: 30px;
     }
 }

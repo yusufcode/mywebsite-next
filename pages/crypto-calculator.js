@@ -1,8 +1,7 @@
 import { useState } from "react";
 import Head from "next/head";
-import styles from "../styles/CryptoCalculator.module.scss";
 import Input from "../components/Input";
-import { PrimaryButton } from "../components/Button";
+import Button from "../components/Button";
 
 export default function Home() {
   const [earned, setEarned] = useState(0);
@@ -56,10 +55,11 @@ export default function Home() {
         placeholder="Cost of the coin when you want to exchange it. Exp: 0.75"
       ></Input>
 
-      <PrimaryButton
+      <Button
         title="Calculate"
+        buttonType="primary"
         onClick={() => setEarned(calculateEarned())}
-      ></PrimaryButton>
+      ></Button>
 
       <p>{earned}</p>
     </>

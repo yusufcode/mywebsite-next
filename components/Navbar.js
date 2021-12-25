@@ -2,7 +2,7 @@ import {useState} from 'react'
 import Link from 'next/link'
 import styles from '../styles/Navbar.module.scss'
 import Logo from './Logo'
-import {IconButton} from './Button'
+import Button from './Button'
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
 
@@ -30,6 +30,7 @@ export default function Navbar() {
     const menuItems = [
         {title: "Home", link: "/"},
         {title: "Crypto Calculator", link: "crypto-calculator"},
+        {title: "Improve Language", link: "improve-language"},
         {title: "CV (Resume)", link: "cv-resume"}
     ]
 
@@ -44,9 +45,11 @@ export default function Navbar() {
                     </a>
                 </Link>
 
-                <IconButton 
+                <Button 
+                    title={menu ? <CloseIcon/> : <MenuIcon/>}
+                    buttonType="icon"
+                    color="dark"
                     onClick={() => setMenu(menuTrigger())} 
-                    icon={menu ? <CloseIcon/> : <MenuIcon/>}
                 />
 
                 <div className={menuContainerClasses}>
