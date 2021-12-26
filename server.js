@@ -8,7 +8,7 @@ const app = next({ dev })
 const handle = app.getRequestHandler()
 const port = process.env.SERVER_PORT || 3000
 
-mongoose.connect(`mongodb+srv://node_user:node_user_123@cluster0.u4slu.mongodb.net/yusufcode?retryWrites=true&w=majority`,{
+mongoose.connect(process.env.DATABASE,{
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })
