@@ -10,6 +10,12 @@ import axios from "axios";
 
 export default function Home() {
 
+  const [screenLanguage, setScreenLanguage] = useState(0)
+  const [screenLearnTest, setScreenLearnTest] = useState(0)
+  const [screenTheme, setScreenTheme] = useState(0)
+  const [screenLearn, setScreenLearn] = useState(0)
+  const [screenTest, setScreenTest] = useState(1)
+
   const [category, setCategory] = useState('general')
   const [allWords, setAllWords] = useState([])
   const [neverAskedWords, setNeverAskedWords] = useState([])
@@ -20,6 +26,14 @@ export default function Home() {
   useEffect(() => {
     getAllData(category)
   }, [])
+
+  function screenLanguageToggle(status){
+    if(status == true){
+      setScreenLanguage(true)
+    } else if(status == false){
+      setScreenLanguage(false)
+    }
+  }
 
   async function getAllData(cat){
 
@@ -188,66 +202,79 @@ export default function Home() {
       <div className={styles.back}>
         <div className={styles.main}>
 
-          <div className={styles.actionBar}>
-            <Button
-              title={<MenuIcon/>}
-              buttonType="icon"
-              color="white"
-              size="l"
-              className={styles.menuButton}
-            />
-          </div>
+          {screenLanguage ? 
+            <div id="screenSelectLanguage">
+              <div className={styles.selectCards}>
+                <div className={styles.selectCardCover}>
+                  <div className={styles.selectCard}>
+                    left
+                  </div>
+                </div>
 
-          <div className={styles.scoreboardCard}>
-            <div className={styles.sbPartCover}>
-              <div className={styles.sbPart}>
-                <h3 className={styles.sbTitle}>{category}</h3>
-                <p className={styles.sbText}>{allWords ? allWords.length : <Loader type="TailSpin" color="#aaa" height={25} width={25}/>}</p>
-              </div>
-              {/* <div className={styles.sbCard}>
-                <ul>
-
-                  {
-                    allWords.map((w,i)=>
-                    <li key={i}>{w}</li>
-                    )
-                  }
-                  
-                  
-                </ul>
-              </div> */}
-            </div>
-
-            <div className={styles.sbPartCover}>
-              <div className={styles.sbPart}>
-                <h3 className={styles.sbTitle}>Rest</h3>
-                <p className={styles.sbText}>{neverAskedWords ? neverAskedWords.length : '0'}</p>
+                <div className={styles.selectCardCover}>
+                  <div className={styles.selectCard}>
+                    right
+                  </div>
+                </div>
               </div>
             </div>
+            : ''
+          }
 
-            <div className={styles.sbPartCover}>
-              <div className={styles.sbPart}>
-                <h3 className={styles.sbTitle}>Answered</h3>
-                <p className={styles.sbText}>{answeredQuestions ? answeredQuestions.length : '0'}</p>
+          {screenTest ? 
+            <div id="screenTest">
+              <div className={styles.actionBar}>
+                <Button
+                  title={<MenuIcon/>}
+                  buttonType="icon"
+                  color="white"
+                  size="l"
+                  className={styles.menuButton}
+                />
               </div>
-            </div>
-          </div>
+
+              <div className={styles.scoreboardCard}>
+                <div className={styles.sbPartCover}>
+                  <div className={styles.sbPart}>
+                    <h3 className={styles.sbTitle}>{category}</h3>
+                    <p className={styles.sbText}>{allWords ? allWords.length : <Loader type="TailSpin" color="#aaa" height={25} width={25}/>}</p>
+                  </div>
+                </div>
+
+                <div className={styles.sbPartCover}>
+                  <div className={styles.sbPart}>
+                    <h3 className={styles.sbTitle}>Rest</h3>
+                    <p className={styles.sbText}>{neverAskedWords ? neverAskedWords.length : '0'}</p>
+                  </div>
+                </div>
+
+                <div className={styles.sbPartCover}>
+                  <div className={styles.sbPart}>
+                    <h3 className={styles.sbTitle}>Answered</h3>
+                    <p className={styles.sbText}>{answeredQuestions ? answeredQuestions.length : '0'}</p>
+                  </div>
+                </div>
+              </div>
+              
+              <div className={styles.questionCard}>
+                <h3 className={styles.title}>English</h3>
+                {
+                  question ? <p className={styles.questionWord} wordid={question._id}>{question.en}</p> : <Loader type="TailSpin" color="#aaa" height={25} width={25}/>
+                }
+              </div>
+
+              <div className={styles.answerCard}>
+                <h3 className={styles.title + ' ' + styles.titleWhite}>Russian</h3>
+                {
+                  answers ? answers.map((answer, i)=><p key={i  } className={styles.answerWord} wordid={answer._id} onClick={(e) => chooseAnswer(e)}>{answer.ru}</p>) : <Loader type="TailSpin" color="#fff" height={25} width={25}/>
+                }
+              </div>
+              
+              <Button title="Continue" className={styles.button} buttonType="primary" onClick={()=>continueButtonClick()}/>
+            </div> 
+            : ''
+          }
           
-          <div className={styles.questionCard}>
-            <h3 className={styles.title}>English</h3>
-            {
-              question ? <p className={styles.questionWord} wordid={question._id}>{question.en}</p> : <Loader type="TailSpin" color="#aaa" height={25} width={25}/>
-            }
-          </div>
-
-          <div className={styles.answerCard}>
-            <h3 className={styles.title + ' ' + styles.titleWhite}>Russian</h3>
-            {
-              answers ? answers.map((answer, i)=><p key={i  } className={styles.answerWord} wordid={answer._id} onClick={(e) => chooseAnswer(e)}>{answer.ru}</p>) : <Loader type="TailSpin" color="#fff" height={25} width={25}/>
-            }
-          </div>
-          
-          <Button title="Continue" className={styles.button} buttonType="primary" onClick={()=>continueButtonClick()}/>
         </div>
       </div>
 
