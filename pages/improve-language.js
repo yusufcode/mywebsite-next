@@ -10,7 +10,7 @@ import axios from "axios";
 
 export default function Home() {
 
-  const [category, setCategory] = useState('family')
+  const [category, setCategory] = useState('general')
   const [allWords, setAllWords] = useState([])
   const [neverAskedWords, setNeverAskedWords] = useState([])
   const [question, setQuestion] = useState()
@@ -30,7 +30,7 @@ export default function Home() {
     }
     
     axios
-    .get(`http://127.0.0.1:3000/api/improve-language${cat}`)
+    .get(`/api/improve-language${cat}`)
     .then(res => {
       setAllWords(res.data)
       setNeverAskedWords(res.data)
@@ -201,7 +201,7 @@ export default function Home() {
           <div className={styles.scoreboardCard}>
             <div className={styles.sbPartCover}>
               <div className={styles.sbPart}>
-                <h3 className={styles.sbTitle}>Family</h3>
+                <h3 className={styles.sbTitle}>{category}</h3>
                 <p className={styles.sbText}>{allWords ? allWords.length : <Loader type="TailSpin" color="#aaa" height={25} width={25}/>}</p>
               </div>
               {/* <div className={styles.sbCard}>
@@ -234,9 +234,9 @@ export default function Home() {
           </div>
           
           <div className={styles.questionCard}>
-            <h3 className={styles.title}>Turkish</h3>
+            <h3 className={styles.title}>English</h3>
             {
-              question ? <p className={styles.questionWord} wordid={question._id}>{question.tr}</p> : <Loader type="TailSpin" color="#aaa" height={25} width={25}/>
+              question ? <p className={styles.questionWord} wordid={question._id}>{question.en}</p> : <Loader type="TailSpin" color="#aaa" height={25} width={25}/>
             }
           </div>
 
