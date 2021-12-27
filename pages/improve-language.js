@@ -7,14 +7,21 @@ import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
 import Loader from "react-loader-spinner";
 import axios from "axios";
+import Flags from "country-flag-icons/react/3x2"
 
 export default function Home() {
 
-  const [screenLanguage, setScreenLanguage] = useState(0)
+  const [screenLanguage, setScreenLanguage] = useState(1)
+  const [mylanguage, setMyLanguage] = useState('GB')
+  const [improveLanguage, setImproveLanguage] = useState('RU')
+  const [myLanguageDrop, setMyLanguageDrop] = useState(false)
+  const [improveLanguageDrop, setImproveLanguageDrop] = useState(false)
+  
+  
   const [screenLearnTest, setScreenLearnTest] = useState(0)
   const [screenTheme, setScreenTheme] = useState(0)
   const [screenLearn, setScreenLearn] = useState(0)
-  const [screenTest, setScreenTest] = useState(1)
+  const [screenTest, setScreenTest] = useState(0)
 
   const [category, setCategory] = useState('general')
   const [allWords, setAllWords] = useState([])
@@ -27,12 +34,17 @@ export default function Home() {
     getAllData(category)
   }, [])
 
-  function screenLanguageToggle(status){
-    if(status == true){
-      setScreenLanguage(true)
-    } else if(status == false){
-      setScreenLanguage(false)
-    }
+  //SCREEN LANGUAGE
+  function myLanguageDropToggle(){
+    setMyLanguageDrop(!myLanguageDrop)
+  }
+
+  function improveLanguageDropToggle(){
+    setImproveLanguageDrop(!improveLanguageDrop)
+  }
+
+  function continueButtonSelectLanguage(){
+    console.log('hit')
   }
 
   async function getAllData(cat){
@@ -203,20 +215,58 @@ export default function Home() {
         <div className={styles.main}>
 
           {screenLanguage ? 
-            <div id="screenSelectLanguage">
+            <div className={styles.screenSelectLanguage}>
               <div className={styles.selectCards}>
                 <div className={styles.selectCardCover}>
                   <div className={styles.selectCard}>
-                    left
+                    <h3 className={styles.selectTitle}>My Language</h3>
+                    <div className={styles.select} onClick={() => myLanguageDropToggle()}>
+                      <Flags.TR width={75} className={styles.flagInSelect}/>
+                    </div>
+                    {
+                      myLanguageDrop ? 
+                      <div className={styles.options}>
+                        <div className={styles.option}>
+                          <Flags.TR width={50} className={styles.flagInSelect}/>
+                        </div>
+                        <div className={styles.option}>
+                          <Flags.GB width={50} className={styles.flagInSelect}/>
+                        </div>
+                        <div className={styles.option}>
+                          <Flags.RU width={50} className={styles.flagInSelect}/>
+                        </div>
+                      </div>
+                      : false
+                    }
                   </div>
                 </div>
-
+        
                 <div className={styles.selectCardCover}>
                   <div className={styles.selectCard}>
-                    right
+                  <h3 className={styles.selectTitle}>Improve</h3>
+                    <div className={styles.select} onClick={() => improveLanguageDropToggle()}>
+                      <Flags.RU width={75} className={styles.flagInSelect}/>
+                    </div>
+                    {
+                      improveLanguageDrop ? 
+                      <div className={styles.options}>
+                        <div className={styles.option}>
+                          <Flags.TR width={50} className={styles.flagInSelect}/>
+                        </div>
+                        <div className={styles.option}>
+                          <Flags.GB width={50} className={styles.flagInSelect}/>
+                        </div>
+                        <div className={styles.option}>
+                          <Flags.RU width={50} className={styles.flagInSelect}/>
+                        </div>
+                      </div>
+                      : false
+                    }
                   </div>
                 </div>
               </div>
+              
+              <Button title="Continue" className={styles.continueButtonSelectLanguage} buttonType="primary" onClick={()=>continueButtonSelectLanguage()}/>
             </div>
             : ''
           }

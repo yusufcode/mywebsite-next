@@ -13,21 +13,98 @@
   margin: auto;
 }
 
-//SELECT CARDS
+//SELECT LANGUAGE SCREEN
+.screenSelectLanguage{
+  height: calc(100vh - 105px);
+  position: relative;
+}
+
 .selectCards{
   display: flex;
+  width: 100vw;
+
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -30%);
 }
 
 .selectCardCover{
   width: 50%;
-  padding: 5px;
+  padding: 0 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .selectCard{
-  background-color: white;
-  width: 100%;
-  height: 250px;
+  width: fit-content;
+  padding: 1px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  padding: 10px 0;
 }
+
+.selectTitle{
+  color: white;
+  font-size: 16px;
+  font-weight: 500;
+  margin-top: 0;
+  margin-bottom: 5px;
+}
+
+.select{
+  padding: 2.5px;
+  background-color: white;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.flagInSelect{
+  border-radius: 7.5px;
+  vertical-align: middle;
+}
+
+.options{
+  background-color: white;
+  min-width: 50px;
+  border-radius: 7.5px;
+  position: absolute;
+  top: 100px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.option{
+  padding: 5px;
+  cursor: pointer;
+  border-bottom: 1px solid #d5d5d5;
+
+  &:last-child{
+    border-bottom: 0;
+  }
+}
+
+.flagInOption{
+  background-color: white;
+  border-radius: 2.5px;
+  vertical-align: middle;
+}
+
+.continueButtonSelectLanguage{
+  width: 50%;
+
+  position: absolute;
+  bottom: 15%;
+  left: 50%;
+  transform: translate(-50%, -15%);
+}
+
+//TEST SCREEN
 
 .actionBar{
   display: flex;
