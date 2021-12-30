@@ -20,20 +20,9 @@ export default function Home() {
   return (
     <>
       <Head>
-        <link rel="icon" href="/img/logo/logo.png" />
-        <meta
-          name="viewport"
-          content="width=device-width, initial-scale=1, user-scalable=no"
-        />
         <title>Crypto Calculator - Yusuf Code</title>
-        <meta
-          name="description"
-          content="You can calculate your crypto coin gain or lose."
-        />
-        <meta
-          name="keywords"
-          content="yusufcode, yusuf code, crypto calculator"
-        />
+        <meta name="description" content="You can calculate your crypto coin gain or lose."/>
+        <meta name="keywords" content="yusufcode, yusuf code, crypto calculator"/>
       </Head>
 
       <Input

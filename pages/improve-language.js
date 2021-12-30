@@ -8,18 +8,22 @@ import CloseIcon from '@mui/icons-material/Close';
 import Loader from "react-loader-spinner";
 import axios from "axios";
 import Flags from "country-flag-icons/react/3x2"
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 export default function Home() {
 
-  const [screenLanguage, setScreenLanguage] = useState(1)
-  const [mylanguage, setMyLanguage] = useState('GB')
-  const [improveLanguage, setImproveLanguage] = useState('RU')
+  const [screenSelectLanguage, setScreenSelectLanguage] = useState(1)
+  const [myLanguage, setMyLanguage] = useState('')
+  const [improveLanguage, setImproveLanguage] = useState('')
   const [myLanguageDrop, setMyLanguageDrop] = useState(false)
   const [improveLanguageDrop, setImproveLanguageDrop] = useState(false)
   
+  const [screenSelectStudyType, setScreenSelectStudyType] = useState(0)
+  const [studyType, setStudyType] = useState('')
   
-  const [screenLearnTest, setScreenLearnTest] = useState(0)
-  const [screenTheme, setScreenTheme] = useState(0)
+  const [screenSelectTheme, setScreenSelectTheme] = useState(0)
+  const [theme, setTheme] = useState('')
+  
   const [screenLearn, setScreenLearn] = useState(0)
   const [screenTest, setScreenTest] = useState(0)
 
@@ -34,19 +38,126 @@ export default function Home() {
     getAllData(category)
   }, [])
 
-  //SCREEN LANGUAGE
+  useEffect(() => {
+    continueButtonStatusChangerSelectLanguage()
+  }, [myLanguage, improveLanguage])
+
+  useEffect(() => {
+    continueButtonStatusChangerSelectStudyType()
+  }, [studyType])
+
+  //SCREEN SELECT LANGUAGE
   function myLanguageDropToggle(){
     setMyLanguageDrop(!myLanguageDrop)
+    setImproveLanguageDrop(false)
   }
 
   function improveLanguageDropToggle(){
     setImproveLanguageDrop(!improveLanguageDrop)
+    setMyLanguageDrop(false)
   }
 
-  function continueButtonSelectLanguage(){
-    console.log('hit')
+  function setLanguages(typleLanguage, selectedLanguage){
+
+    if(typleLanguage == 'myLanguage'){
+      setMyLanguage(selectedLanguage)
+
+      if(selectedLanguage == improveLanguage){
+        setImproveLanguage('')
+      }
+      
+    } else if(typleLanguage == 'improveLanguage'){
+      setImproveLanguage(selectedLanguage)
+
+      if(selectedLanguage == myLanguage){
+        setMyLanguage('')
+      }
+      
+    }
+
+    setMyLanguageDrop(false)
+    setImproveLanguageDrop(false)
+    
   }
 
+  function continueButtonStatusChangerSelectLanguage(){
+
+    if(screenSelectLanguage == true){
+
+      const button = document.getElementsByClassName(styles.screenSelectLanguage_continueButton)
+
+      if(myLanguage != '' && improveLanguage != ''){
+        button[0].classList.remove(stylesButton.disabled)
+      } else{
+        button[0].classList.add(stylesButton.disabled)
+      }
+      
+    }
+    
+  }
+
+  function continueButtonClickSelectLanguage(){
+    setScreenSelectLanguage(0)
+    setScreenSelectStudyType(1)
+  }
+
+  //SCREEN SELECT STUDY TYPE
+  function setStudyTypes(e, type){
+
+    const otherSelected = e.target.closest(`.${styles.screenSelectStudyType_selectCards}`).getElementsByClassName(styles.active)
+    
+    if(otherSelected.length > 0){
+      otherSelected[0].classList.remove(styles.active)
+
+    }
+    
+    const selected = e.target
+    selected.classList.add(styles.active)
+
+    if(type == 'learn'){
+      setStudyType('learn')
+    } else if(type == 'test'){
+      setStudyType('test')
+    }
+
+  }
+
+  function continueButtonStatusChangerSelectStudyType(){
+
+    if(screenSelectStudyType == true){
+
+      const button = document.getElementsByClassName(styles.screenSelectStudyType_continueButton)
+
+      if(studyType != ''){
+        button[0].classList.remove(stylesButton.disabled)
+      } else{
+        button[0].classList.add(stylesButton.disabled)
+      }
+      
+    }
+    
+  }
+  
+  function continueButtonClickSelectStudyType(){
+    setScreenSelectStudyType(0)
+    setScreenSelectTheme(1)
+  }
+
+  //SCREEN SELECT THEME
+  function showThemeListDrop(e){
+
+    const dropBody = e.target.closest(`.${styles.screenSelectTheme_themeListDrop}`).getElementsByClassName(styles.screenSelectTheme_themeListDropBody)
+
+    if(!dropBody[0].classList.contains(styles.showDropBody)){
+      dropBody[0].classList.add(styles.showDropBody)
+      
+    } else{
+      dropBody[0].classList.remove(styles.showDropBody)
+    }
+    
+  }
+
+  //SCREEN TEST
   async function getAllData(cat){
 
     if(cat){
@@ -195,45 +306,42 @@ export default function Home() {
   return (
     <>
       <Head>
-        <link rel="icon" href="/img/logo/logo.png" />
-        <meta
-          name="viewport"
-          content="width=device-width, initial-scale=1, user-scalable=no"
-        />
         <title>Improve Language - Yusuf Code</title>
-        <meta
-          name="description"
-          content="You can learn words with this application."
-        />
-        <meta
-          name="keywords"
-          content="learn, language, words, learn words, learn language, yusufcode, yusuf code, web developer, full stack web developer, freelance web developer"
-        />
+        <meta name="description" content="You can learn words with this application."/>
+        <meta name="keywords" content="learn, language, words, learn words, learn language, yusufcode, yusuf code, web developer, full stack web developer, freelance web developer"/>
       </Head>
 
       <div className={styles.back}>
         <div className={styles.main}>
 
-          {screenLanguage ? 
+          {screenSelectLanguage ? 
             <div className={styles.screenSelectLanguage}>
-              <div className={styles.selectCards}>
-                <div className={styles.selectCardCover}>
-                  <div className={styles.selectCard}>
-                    <h3 className={styles.selectTitle}>My Language</h3>
-                    <div className={styles.select} onClick={() => myLanguageDropToggle()}>
-                      <Flags.TR width={75} className={styles.flagInSelect}/>
+              <div className={styles.screenSelectLanguage_selectCards}>
+                <div className={styles.screenSelectLanguage_selectCardCover}>
+                  <div className={styles.screenSelectLanguage_selectCard}>
+                    <h3 className={styles.screenSelectLanguage_selectTitle}>My Language</h3>
+                    <div className={styles.screenSelectLanguage_select} onClick={() => myLanguageDropToggle()}>
+                      {
+                        myLanguage == 'TR' ?
+                        <Flags.TR width={75} className={styles.screenSelectLanguage_flagInSelect}/> :
+                        myLanguage == 'GB' ?
+                        <Flags.GB width={75} className={styles.screenSelectLanguage_flagInSelect}/> :
+                        myLanguage == 'RU' ?
+                        <Flags.RU width={75} className={styles.screenSelectLanguage_flagInSelect}/> :
+                        ''
+                      }
                     </div>
                     {
                       myLanguageDrop ? 
-                      <div className={styles.options}>
-                        <div className={styles.option}>
-                          <Flags.TR width={50} className={styles.flagInSelect}/>
+                      <div className={styles.screenSelectLanguage_options}>
+                        <div className={styles.screenSelectLanguage_option} onClick={() => setLanguages('myLanguage', 'TR')}>
+                          <Flags.TR width={50} className={styles.screenSelectLanguage_flagInSelect}/>
                         </div>
-                        <div className={styles.option}>
-                          <Flags.GB width={50} className={styles.flagInSelect}/>
+                        <div className={styles.screenSelectLanguage_option} onClick={() => setLanguages('myLanguage', 'GB')}>
+                          <Flags.GB width={50} className={styles.screenSelectLanguage_flagInSelect}/>
                         </div>
-                        <div className={styles.option}>
-                          <Flags.RU width={50} className={styles.flagInSelect}/>
+                        <div className={styles.screenSelectLanguage_option} onClick={() => setLanguages('myLanguage', 'RU')}>
+                          <Flags.RU width={50} className={styles.screenSelectLanguage_flagInSelect}/>
                         </div>
                       </div>
                       : false
@@ -241,23 +349,31 @@ export default function Home() {
                   </div>
                 </div>
         
-                <div className={styles.selectCardCover}>
-                  <div className={styles.selectCard}>
-                  <h3 className={styles.selectTitle}>Improve</h3>
-                    <div className={styles.select} onClick={() => improveLanguageDropToggle()}>
-                      <Flags.RU width={75} className={styles.flagInSelect}/>
+                <div className={styles.screenSelectLanguage_selectCardCover}>
+                  <div className={styles.screenSelectLanguage_selectCard}>
+                  <h3 className={styles.screenSelectLanguage_selectTitle}>Improve Language</h3>
+                    <div className={styles.screenSelectLanguage_select} onClick={() => improveLanguageDropToggle()}>
+                      {
+                        improveLanguage == 'TR' ?
+                        <Flags.TR width={75} className={styles.screenSelectLanguage_flagInSelect}/> :
+                        improveLanguage == 'GB' ?
+                        <Flags.GB width={75} className={styles.screenSelectLanguage_flagInSelect}/> :
+                        improveLanguage == 'RU' ?
+                        <Flags.RU width={75} className={styles.screenSelectLanguage_flagInSelect}/> :
+                        ''
+                      }
                     </div>
                     {
                       improveLanguageDrop ? 
-                      <div className={styles.options}>
-                        <div className={styles.option}>
-                          <Flags.TR width={50} className={styles.flagInSelect}/>
+                      <div className={styles.screenSelectLanguage_options}>
+                        <div className={styles.screenSelectLanguage_option} onClick={() => setLanguages('improveLanguage', 'TR')}>
+                          <Flags.TR width={50} className={styles.screenSelectLanguage_flagInSelect}/>
                         </div>
-                        <div className={styles.option}>
-                          <Flags.GB width={50} className={styles.flagInSelect}/>
+                        <div className={styles.screenSelectLanguage_option} onClick={() => setLanguages('improveLanguage', 'GB')}>
+                          <Flags.GB width={50} className={styles.screenSelectLanguage_flagInSelect}/>
                         </div>
-                        <div className={styles.option}>
-                          <Flags.RU width={50} className={styles.flagInSelect}/>
+                        <div className={styles.screenSelectLanguage_option} onClick={() => setLanguages('improveLanguage', 'RU')}>
+                          <Flags.RU width={50} className={styles.screenSelectLanguage_flagInSelect}/>
                         </div>
                       </div>
                       : false
@@ -266,10 +382,47 @@ export default function Home() {
                 </div>
               </div>
               
-              <Button title="Continue" className={styles.continueButtonSelectLanguage} buttonType="primary" onClick={()=>continueButtonSelectLanguage()}/>
+              <Button title="Continue" className={styles.screenSelectLanguage_continueButton} buttonType="primary" disabled onClick={()=>continueButtonClickSelectLanguage()}/>
             </div>
-            : ''
+            : false
           }
+
+          {screenSelectStudyType ?
+            <div className={styles.screenSelectStudyType}>
+              <div className={styles.screenSelectStudyType_selectCards}>
+                <div className={styles.screenSelectStudyType_selectCardCover}>
+                  <div className={styles.screenSelectStudyType_selectCard} onClick={(e) => setStudyTypes(e, 'learn')}>
+                    Learn
+                  </div>
+                </div>
+                <div className={styles.screenSelectStudyType_selectCardCover}>
+                  <div className={styles.screenSelectStudyType_selectCard} onClick={(e) => setStudyTypes(e, 'test')}>
+                    Test
+                  </div>
+                </div>
+              </div>
+
+              <Button title="Continue" className={styles.screenSelectStudyType_continueButton} buttonType="primary" disabled onClick={()=>continueButtonClickSelectStudyType()}/>
+            </div>
+            : false
+          }
+
+          <div className={styles.screenSelectTheme}>
+            <ul className={styles.screenSelectTheme_themeList}>
+              <li className={styles.screenSelectTheme_themeListElement}>All</li>
+              <li className={styles.screenSelectTheme_themeListElement}>Family</li>
+              <div className={styles.screenSelectTheme_themeListDrop}>
+                <li className={styles.screenSelectTheme_themeListDropHeader} onClick={(e) => showThemeListDrop(e)}>University <KeyboardArrowDownIcon/></li>
+                <div className={styles.screenSelectTheme_themeListDropBody}>
+                  <li className={styles.screenSelectTheme_themeListDropElement}>All</li>
+                  <li className={styles.screenSelectTheme_themeListDropElement}>University Registration</li>
+                  <li className={styles.screenSelectTheme_themeListDropElement}>University Math</li>
+                  <li className={styles.screenSelectTheme_themeListDropElement}>University Physics</li>
+                  <li className={styles.screenSelectTheme_themeListDropElement}>University Chemistry</li>
+                </div>
+              </div>
+            </ul>
+          </div>
 
           {screenTest ? 
             <div id="screenTest">
@@ -322,7 +475,7 @@ export default function Home() {
               
               <Button title="Continue" className={styles.button} buttonType="primary" onClick={()=>continueButtonClick()}/>
             </div> 
-            : ''
+            : false
           }
           
         </div>
