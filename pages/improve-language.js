@@ -407,22 +407,25 @@ export default function Home() {
             : false
           }
 
-          <div className={styles.screenSelectTheme}>
-            <ul className={styles.screenSelectTheme_themeList}>
-              <li className={styles.screenSelectTheme_themeListElement}>All</li>
-              <li className={styles.screenSelectTheme_themeListElement}>Family</li>
-              <div className={styles.screenSelectTheme_themeListDrop}>
-                <li className={styles.screenSelectTheme_themeListDropHeader} onClick={(e) => showThemeListDrop(e)}>University <KeyboardArrowDownIcon/></li>
-                <div className={styles.screenSelectTheme_themeListDropBody}>
-                  <li className={styles.screenSelectTheme_themeListDropElement}>All</li>
-                  <li className={styles.screenSelectTheme_themeListDropElement}>University Registration</li>
-                  <li className={styles.screenSelectTheme_themeListDropElement}>University Math</li>
-                  <li className={styles.screenSelectTheme_themeListDropElement}>University Physics</li>
-                  <li className={styles.screenSelectTheme_themeListDropElement}>University Chemistry</li>
+          {screenSelectTheme ?
+            <div className={styles.screenSelectTheme}>
+              <ul className={styles.screenSelectTheme_themeList}>
+                <li className={styles.screenSelectTheme_themeListElement}>All</li>
+                <li className={styles.screenSelectTheme_themeListElement}>Family</li>
+                <div className={styles.screenSelectTheme_themeListDrop}>
+                  <li className={styles.screenSelectTheme_themeListDropHeader} onClick={(e) => showThemeListDrop(e)}>University <KeyboardArrowDownIcon/></li>
+                  <div className={styles.screenSelectTheme_themeListDropBody}>
+                    <li className={styles.screenSelectTheme_themeListDropElement}>All</li>
+                    <li className={styles.screenSelectTheme_themeListDropElement}>University Registration</li>
+                    <li className={styles.screenSelectTheme_themeListDropElement}>University Math</li>
+                    <li className={styles.screenSelectTheme_themeListDropElement}>University Physics</li>
+                    <li className={styles.screenSelectTheme_themeListDropElement}>University Chemistry</li>
+                  </div>
                 </div>
-              </div>
-            </ul>
-          </div>
+              </ul>
+            </div>
+            : false
+          }
 
           {screenTest ? 
             <div id="screenTest">
