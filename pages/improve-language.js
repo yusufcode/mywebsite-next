@@ -34,10 +34,6 @@ export default function Home() {
   const [answers, setAnswers] = useState()
   const [answeredQuestions, setAnsweredQuestions] = useState([])
 
-  useEffect(() => {
-    getAllData(category)
-  }, [])
-
   //SCREEN SELECT LANGUAGE
   function myLanguageDropToggle(){
     setMyLanguageDrop(!myLanguageDrop)
