@@ -38,14 +38,6 @@ export default function Home() {
     getAllData(category)
   }, [])
 
-  useEffect(() => {
-    continueButtonStatusChangerSelectLanguage()
-  }, [myLanguage, improveLanguage])
-
-  useEffect(() => {
-    continueButtonStatusChangerSelectStudyType()
-  }, [studyType])
-
   //SCREEN SELECT LANGUAGE
   function myLanguageDropToggle(){
     setMyLanguageDrop(!myLanguageDrop)
@@ -80,22 +72,6 @@ export default function Home() {
     
   }
 
-  function continueButtonStatusChangerSelectLanguage(){
-
-    if(screenSelectLanguage == true){
-
-      const button = document.getElementsByClassName(styles.screenSelectLanguage_continueButton)
-
-      if(myLanguage != '' && improveLanguage != ''){
-        button[0].classList.remove(stylesButton.disabled)
-      } else{
-        button[0].classList.add(stylesButton.disabled)
-      }
-      
-    }
-    
-  }
-
   function continueButtonClickSelectLanguage(){
     setScreenSelectLanguage(0)
     setScreenSelectStudyType(1)
@@ -120,22 +96,6 @@ export default function Home() {
       setStudyType('test')
     }
 
-  }
-
-  function continueButtonStatusChangerSelectStudyType(){
-
-    if(screenSelectStudyType == true){
-
-      const button = document.getElementsByClassName(styles.screenSelectStudyType_continueButton)
-
-      if(studyType != ''){
-        button[0].classList.remove(stylesButton.disabled)
-      } else{
-        button[0].classList.add(stylesButton.disabled)
-      }
-      
-    }
-    
   }
   
   function continueButtonClickSelectStudyType(){
@@ -382,7 +342,10 @@ export default function Home() {
                 </div>
               </div>
               
-              <Button title="Continue" className={styles.screenSelectLanguage_continueButton} buttonType="primary" disabled onClick={()=>continueButtonClickSelectLanguage()}/>
+              {myLanguage != '' && improveLanguage != '' ?
+              <Button title="Continue" className={styles.screenSelectLanguage_continueButton} buttonType="primary" onClick={()=>continueButtonClickSelectLanguage()}/>
+              : false
+              }
             </div>
             : false
           }
@@ -402,7 +365,10 @@ export default function Home() {
                 </div>
               </div>
 
-              <Button title="Continue" className={styles.screenSelectStudyType_continueButton} buttonType="primary" disabled onClick={()=>continueButtonClickSelectStudyType()}/>
+              {studyType != '' ?
+              <Button title="Continue" className={styles.screenSelectStudyType_continueButton} buttonType="primary" onClick={()=>continueButtonClickSelectStudyType()}/>
+              : false
+              }
             </div>
             : false
           }
