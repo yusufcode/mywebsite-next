@@ -20,6 +20,6 @@ const PostSchema = mongoose.Schema({
     type:Array,
     required:false
   }
-}, {timestamps:true})
+})
 
 module.exports = mongoose.model('ImproveLanguage', PostSchema)

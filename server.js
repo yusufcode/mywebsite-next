@@ -23,6 +23,7 @@ mongoose.connect(process.env.DATABASE,{
     //ROUTES
     server.use(express.json())
     server.use('/api/improve-language', ImproveLanguageRoute)
+    server.use('/api/improve-language-categories', ImproveLanguageCategoriesRoute)
     server.get('*', (req, res) => handle(req, res))
   
     server.listen(port, (err) => {
@@ -39,5 +40,6 @@ mongoose.connect(process.env.DATABASE,{
 
 //IMPORT ROUTES
 const ImproveLanguageRoute = require('./api/routes/improveLanguage')
+const ImproveLanguageCategoriesRoute = require('./api/routes/improveLanguageCategories')
 
 

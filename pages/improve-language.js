@@ -9,25 +9,27 @@ import Loader from "react-loader-spinner";
 import axios from "axios";
 import Flags from "country-flag-icons/react/3x2"
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 
 export default function Home() {
 
   const [screenSelectLanguage, setScreenSelectLanguage] = useState(1)
-  const [myLanguage, setMyLanguage] = useState('')
-  const [improveLanguage, setImproveLanguage] = useState('')
+  const [myLanguage, setMyLanguage] = useState([])
+  const [improveLanguage, setImproveLanguage] = useState([])
   const [myLanguageDrop, setMyLanguageDrop] = useState(false)
   const [improveLanguageDrop, setImproveLanguageDrop] = useState(false)
   
   const [screenSelectStudyType, setScreenSelectStudyType] = useState(0)
   const [studyType, setStudyType] = useState('')
   
-  const [screenSelectTheme, setScreenSelectTheme] = useState(0)
-  const [theme, setTheme] = useState('')
+  const [screenSelectCategory, setScreenSelectCategory] = useState(0)
+  const [allCategories, setAllCategories] = useState([])
+  const [category, setCategory] = useState()
   
   const [screenLearn, setScreenLearn] = useState(0)
   const [screenTest, setScreenTest] = useState(0)
 
-  const [category, setCategory] = useState('general')
+  
   const [allWords, setAllWords] = useState([])
   const [neverAskedWords, setNeverAskedWords] = useState([])
   const [question, setQuestion] = useState()
@@ -45,20 +47,20 @@ export default function Home() {
     setMyLanguageDrop(false)
   }
 
-  function setLanguages(typleLanguage, selectedLanguage){
+  function setLanguages(typleLanguage, selectedLanguageShort, selectedLanguageLong){
 
     if(typleLanguage == 'myLanguage'){
-      setMyLanguage(selectedLanguage)
+      setMyLanguage({'short':selectedLanguageShort, 'long': selectedLanguageLong})
 
-      if(selectedLanguage == improveLanguage){
-        setImproveLanguage('')
+      if(selectedLanguageShort == improveLanguage.short){
+        setImproveLanguage([])
       }
       
     } else if(typleLanguage == 'improveLanguage'){
-      setImproveLanguage(selectedLanguage)
+      setImproveLanguage({'short':selectedLanguageShort, 'long': selectedLanguageLong})
 
-      if(selectedLanguage == myLanguage){
-        setMyLanguage('')
+      if(selectedLanguageShort == myLanguage.short){
+        setMyLanguage([])
       }
       
     }
@@ -96,19 +98,52 @@ export default function Home() {
   
   function continueButtonClickSelectStudyType(){
     setScreenSelectStudyType(0)
-    setScreenSelectTheme(1)
+    setScreenSelectCategory(1)
+    getAllCategories()
   }
 
-  //SCREEN SELECT THEME
-  function showThemeListDrop(e){
+  async function getAllCategories(name){
 
-    const dropBody = e.target.closest(`.${styles.screenSelectTheme_themeListDrop}`).getElementsByClassName(styles.screenSelectTheme_themeListDropBody)
-
-    if(!dropBody[0].classList.contains(styles.showDropBody)){
-      dropBody[0].classList.add(styles.showDropBody)
-      
+    if(name){
+      name = `?name=${name}`
     } else{
-      dropBody[0].classList.remove(styles.showDropBody)
+      name = ``
+    }
+    
+    axios
+    .get(`/api/improve-language-categories${name}`)
+    .then(res => {
+      setAllCategories(res.data)
+    })
+    .catch(err =>{
+      console.log(err)
+    })
+
+  }
+
+  //SCREEN SELECT CATEGORY
+  function showCategoryListDrop(e){
+
+    const drop = e.target.closest(`.${styles.screenSelectCategory_categoryListDrop}`)
+
+    if(!drop.classList.contains(styles.activeDrop)){
+      drop.classList.add(styles.activeDrop)
+    } else{
+      drop.classList.remove(styles.activeDrop)
+    }
+    
+  }
+
+  function setCategoryAndMove(cat){
+
+    setCategory(cat)
+    setScreenSelectCategory(0)
+    
+    if(studyType == 'learn'){
+      setScreenLearn(1)
+    } else if (studyType == 'test'){
+      getAllData(category)
+      setScreenTest(1)
     }
     
   }
@@ -278,11 +313,11 @@ export default function Home() {
                     <h3 className={styles.screenSelectLanguage_selectTitle}>My Language</h3>
                     <div className={styles.screenSelectLanguage_select} onClick={() => myLanguageDropToggle()}>
                       {
-                        myLanguage == 'TR' ?
+                        myLanguage.short == 'tr' ?
                         <Flags.TR width={75} className={styles.screenSelectLanguage_flagInSelect}/> :
-                        myLanguage == 'GB' ?
+                        myLanguage.short == 'en' ?
                         <Flags.GB width={75} className={styles.screenSelectLanguage_flagInSelect}/> :
-                        myLanguage == 'RU' ?
+                        myLanguage.short == 'ru' ?
                         <Flags.RU width={75} className={styles.screenSelectLanguage_flagInSelect}/> :
                         ''
                       }
@@ -290,13 +325,13 @@ export default function Home() {
                     {
                       myLanguageDrop ? 
                       <div className={styles.screenSelectLanguage_options}>
-                        <div className={styles.screenSelectLanguage_option} onClick={() => setLanguages('myLanguage', 'TR')}>
+                        <div className={styles.screenSelectLanguage_option} onClick={() => setLanguages('myLanguage', 'tr', 'turkish')}>
                           <Flags.TR width={50} className={styles.screenSelectLanguage_flagInSelect}/>
                         </div>
-                        <div className={styles.screenSelectLanguage_option} onClick={() => setLanguages('myLanguage', 'GB')}>
+                        <div className={styles.screenSelectLanguage_option} onClick={() => setLanguages('myLanguage', 'en', 'english')}>
                           <Flags.GB width={50} className={styles.screenSelectLanguage_flagInSelect}/>
                         </div>
-                        <div className={styles.screenSelectLanguage_option} onClick={() => setLanguages('myLanguage', 'RU')}>
+                        <div className={styles.screenSelectLanguage_option} onClick={() => setLanguages('myLanguage', 'ru', 'russian')}>
                           <Flags.RU width={50} className={styles.screenSelectLanguage_flagInSelect}/>
                         </div>
                       </div>
@@ -310,11 +345,11 @@ export default function Home() {
                   <h3 className={styles.screenSelectLanguage_selectTitle}>Improve Language</h3>
                     <div className={styles.screenSelectLanguage_select} onClick={() => improveLanguageDropToggle()}>
                       {
-                        improveLanguage == 'TR' ?
+                        improveLanguage.short == 'tr' ?
                         <Flags.TR width={75} className={styles.screenSelectLanguage_flagInSelect}/> :
-                        improveLanguage == 'GB' ?
+                        improveLanguage.short == 'en' ?
                         <Flags.GB width={75} className={styles.screenSelectLanguage_flagInSelect}/> :
-                        improveLanguage == 'RU' ?
+                        improveLanguage.short == 'ru' ?
                         <Flags.RU width={75} className={styles.screenSelectLanguage_flagInSelect}/> :
                         ''
                       }
@@ -322,13 +357,13 @@ export default function Home() {
                     {
                       improveLanguageDrop ? 
                       <div className={styles.screenSelectLanguage_options}>
-                        <div className={styles.screenSelectLanguage_option} onClick={() => setLanguages('improveLanguage', 'TR')}>
+                        <div className={styles.screenSelectLanguage_option} onClick={() => setLanguages('improveLanguage', 'tr', 'turkish')}>
                           <Flags.TR width={50} className={styles.screenSelectLanguage_flagInSelect}/>
                         </div>
-                        <div className={styles.screenSelectLanguage_option} onClick={() => setLanguages('improveLanguage', 'GB')}>
+                        <div className={styles.screenSelectLanguage_option} onClick={() => setLanguages('improveLanguage', 'en', 'english')}>
                           <Flags.GB width={50} className={styles.screenSelectLanguage_flagInSelect}/>
                         </div>
-                        <div className={styles.screenSelectLanguage_option} onClick={() => setLanguages('improveLanguage', 'RU')}>
+                        <div className={styles.screenSelectLanguage_option} onClick={() => setLanguages('improveLanguage', 'ru', 'russian')}>
                           <Flags.RU width={50} className={styles.screenSelectLanguage_flagInSelect}/>
                         </div>
                       </div>
@@ -350,8 +385,9 @@ export default function Home() {
             <div className={styles.screenSelectStudyType}>
               <div className={styles.screenSelectStudyType_selectCards}>
                 <div className={styles.screenSelectStudyType_selectCardCover}>
-                  <div className={styles.screenSelectStudyType_selectCard} onClick={(e) => setStudyTypes(e, 'learn')}>
-                    Learn
+                  <div className={styles.screenSelectStudyType_selectCard} style={{backgroundColor:'#d5d5d5', cursor:'default'}}>
+                    Learn 
+                    <small>(soon)</small>
                   </div>
                 </div>
                 <div className={styles.screenSelectStudyType_selectCardCover}>
@@ -369,21 +405,28 @@ export default function Home() {
             : false
           }
 
-          {screenSelectTheme ?
-            <div className={styles.screenSelectTheme}>
-              <ul className={styles.screenSelectTheme_themeList}>
-                <li className={styles.screenSelectTheme_themeListElement}>All</li>
-                <li className={styles.screenSelectTheme_themeListElement}>Family</li>
-                <div className={styles.screenSelectTheme_themeListDrop}>
-                  <li className={styles.screenSelectTheme_themeListDropHeader} onClick={(e) => showThemeListDrop(e)}>University <KeyboardArrowDownIcon/></li>
-                  <div className={styles.screenSelectTheme_themeListDropBody}>
-                    <li className={styles.screenSelectTheme_themeListDropElement}>All</li>
-                    <li className={styles.screenSelectTheme_themeListDropElement}>University Registration</li>
-                    <li className={styles.screenSelectTheme_themeListDropElement}>University Math</li>
-                    <li className={styles.screenSelectTheme_themeListDropElement}>University Physics</li>
-                    <li className={styles.screenSelectTheme_themeListDropElement}>University Chemistry</li>
+          {screenSelectCategory ?
+            <div className={styles.screenSelectCategory}>
+              <ul className={styles.screenSelectCategory_categoryList}>
+
+                {allCategories ?
+                  allCategories.map((category, i) => 
+                    <li key={i} className={styles.screenSelectCategory_categoryListLi} onClick={() => setCategoryAndMove(category.name)}>{category.name}</li>
+                  )
+                  : <Loader type="TailSpin" color="#aaa" height={25} width={25}/>
+                }
+                
+                {/* <li className={styles.screenSelectCategory_categoryListLi}>Family</li>
+                <div className={styles.screenSelectCategory_categoryListDrop}>
+                  <li className={styles.screenSelectCategory_categoryListLi} onClick={(e) => showCategoryListDrop(e)}>University <KeyboardArrowDownIcon/></li>
+                  <div className={styles.screenSelectCategory_categoryListDropBody}>
+                    <li className={styles.screenSelectCategory_categoryListDropLi}>All</li>
+                    <li className={styles.screenSelectCategory_categoryListDropLi}>University Registration</li>
+                    <li className={styles.screenSelectCategory_categoryListDropLi}>University Math</li>
+                    <li className={styles.screenSelectCategory_categoryListDropLi}>University Physics</li>
+                    <li className={styles.screenSelectCategory_categoryListDropLi}>University Chemistry</li>
                   </div>
-                </div>
+                </div> */}
               </ul>
             </div>
             : false
@@ -425,16 +468,16 @@ export default function Home() {
               </div>
               
               <div className={styles.questionCard}>
-                <h3 className={styles.title}>English</h3>
+                <h3 className={styles.title}>{improveLanguage.long}</h3>
                 {
-                  question ? <p className={styles.questionWord} wordid={question._id}>{question.en}</p> : <Loader type="TailSpin" color="#aaa" height={25} width={25}/>
+                  question ? <p className={styles.questionWord} wordid={question._id}>{question[improveLanguage.short]}</p> : <Loader type="TailSpin" color="#aaa" height={25} width={25}/>
                 }
               </div>
 
               <div className={styles.answerCard}>
-                <h3 className={styles.title + ' ' + styles.titleWhite}>Russian</h3>
+                <h3 className={styles.title + ' ' + styles.titleWhite}>{myLanguage.long}</h3>
                 {
-                  answers ? answers.map((answer, i)=><p key={i  } className={styles.answerWord} wordid={answer._id} onClick={(e) => chooseAnswer(e)}>{answer.ru}</p>) : <Loader type="TailSpin" color="#fff" height={25} width={25}/>
+                  answers ? answers.map((answer, i)=><p key={i  } className={styles.answerWord} wordid={answer._id} onClick={(e) => chooseAnswer(e)}>{answer[myLanguage.short]}</p>) : <Loader type="TailSpin" color="#fff" height={25} width={25}/>
                 }
               </div>
               

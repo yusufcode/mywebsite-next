@@ -2,7 +2,7 @@
   "name": "mywebsite-next",
   "private": true,
   "scripts": {
-    "dev": "nodemon server.js",
+    "dev": "node server.js",
     "build": "next build",
     "start": "node server.js",
     "lint": "next lint"
