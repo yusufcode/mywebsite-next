@@ -13,6 +13,8 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 
 export default function Home() {
 
+  const [actionMenuDrop, setActionMenuDrop] = useState(false)
+
   const [screenSelectLanguage, setScreenSelectLanguage] = useState(1)
   const [myLanguage, setMyLanguage] = useState([])
   const [improveLanguage, setImproveLanguage] = useState([])
@@ -29,12 +31,41 @@ export default function Home() {
   const [screenLearn, setScreenLearn] = useState(0)
   const [screenTest, setScreenTest] = useState(0)
 
+  const [screenEndOfTest, setScreenEndOfTest] = useState(0)
+
   
   const [allWords, setAllWords] = useState([])
   const [neverAskedWords, setNeverAskedWords] = useState([])
   const [question, setQuestion] = useState()
   const [answers, setAnswers] = useState()
   const [answeredQuestions, setAnsweredQuestions] = useState([])
+  const [correctAnswers, setCorrectAnswers] = useState([])
+  const [wrongAnswers, setWrongAnswers] = useState([])
+
+  function changeScreen(screenName){
+    setScreenSelectLanguage(0)
+    setScreenSelectStudyType(0)
+    setScreenSelectCategory(0)
+    setScreenLearn(0)
+    setScreenTest(0)
+    setScreenEndOfTest(0)
+
+    if(screenName == 'selectLanguage'){
+      setScreenSelectLanguage(1)
+    } else if(screenName == 'studyType'){
+      setScreenSelectStudyType(1)
+    } else if(screenName == 'category'){
+      setScreenSelectCategory(1)
+    } else if(screenName == 'learn'){
+      setScreenLearn(1)
+    } else if(screenName == 'test'){
+      setScreenTest(1)
+    } else if(screenName == 'endOfTest'){
+      setScreenEndOfTest(1)
+    }
+
+    setActionMenuDrop(false)
+  }
 
   //SCREEN SELECT LANGUAGE
   function myLanguageDropToggle(){
@@ -111,7 +142,7 @@ export default function Home() {
     }
     
     axios
-    .get(`/api/improve-language-categories${name}`)
+    .get(`${process.env.NEXT_PUBLIC_API_IMPROVE_LANGUAGE_CATEGORIES}${name}`)
     .then(res => {
       setAllCategories(res.data)
     })
@@ -142,7 +173,7 @@ export default function Home() {
     if(studyType == 'learn'){
       setScreenLearn(1)
     } else if (studyType == 'test'){
-      getAllData(category)
+      getAllData(cat)
       setScreenTest(1)
     }
     
@@ -158,7 +189,7 @@ export default function Home() {
     }
     
     axios
-    .get(`/api/improve-language${cat}`)
+    .get(`${process.env.NEXT_PUBLIC_API_IMPROVE_LANGUAGE_WORDS}${cat}`)
     .then(res => {
       setAllWords(res.data)
       setNeverAskedWords(res.data)
@@ -183,33 +214,41 @@ export default function Home() {
       allWordsList = [...allWords]
     }
 
-    const questionIndex = randomNumber(neverAskedList.length)
-    const newQuestion = neverAskedList[questionIndex]
+    if(neverAskedList.length > 0){
+      
+      const questionIndex = randomNumber(neverAskedList.length)
+      const newQuestion = neverAskedList[questionIndex]
 
-    const questionId = newQuestion._id
-    for (let i = 0; i < allWordsList.length; i++) {
-      if(allWordsList[i]._id === questionId){
-        allWordsList.splice(i, 1)
+      const questionId = newQuestion._id
+      for (let i = 0; i < allWordsList.length; i++) {
+        if(allWordsList[i]._id === questionId){
+          allWordsList.splice(i, 1)
+        }
       }
+
+      let newAnswers = []
+      let answerIndex
+      for (let i = 0; i < 4; i++) {
+        answerIndex = randomNumber(allWordsList.length)
+        newAnswers[i] = allWordsList[answerIndex]
+        allWordsList.splice(answerIndex, 1)
+      }
+
+      newAnswers.push(newQuestion)
+      const randomisedAnswers = newAnswers.sort(()=>Math.random() - 0.5)
+
+      setQuestion(newQuestion)
+      setAnswers(randomisedAnswers)
+
+      neverAskedList.splice(questionIndex, 1)
+      setNeverAskedWords(neverAskedList)
+      
+    } else {
+
+      endOfTest()
+      
     }
 
-    let newAnswers = []
-    let answerIndex
-    for (let i = 0; i < 4; i++) {
-      answerIndex = randomNumber(allWordsList.length)
-      newAnswers[i] = allWordsList[answerIndex]
-      allWordsList.splice(answerIndex, 1)
-    }
-
-    newAnswers.push(newQuestion)
-    const randomisedAnswers = newAnswers.sort(()=>Math.random() - 0.5)
-
-    setQuestion(newQuestion)
-    setAnswers(randomisedAnswers)
-
-    neverAskedList.splice(questionIndex, 1)
-    setNeverAskedWords(neverAskedList)
-    
   }
 
   function randomNumber(max) {
@@ -227,7 +266,6 @@ export default function Home() {
       button[0].classList.add(stylesButton.disabled)
     }
 
-    
   }
 
   function chooseAnswer(e){
@@ -293,6 +331,36 @@ export default function Home() {
     setAnsweredQuestions(temporaryList)
 
   }
+
+  function endOfTest(){
+
+    setScreenTest(0)
+    setScreenEndOfTest(1)
+    calculateAnsweredQuestions()
+    
+  }
+
+  //SCREEN END OF TEST
+  function calculateAnsweredQuestions(){
+
+    let correctAnswersLocal = []
+    let wrongAnswersLocal = []
+
+    for (let i = 0; i < answeredQuestions.length; i++) {
+      if(answeredQuestions[i].result == true){
+        correctAnswersLocal[i] = answeredQuestions[i]
+      } else{
+        wrongAnswersLocal[i] = answeredQuestions[i]
+      }
+    }
+
+    setCorrectAnswers(correctAnswersLocal)
+    setWrongAnswers(wrongAnswersLocal)
+
+    console.log(correctAnswersLocal)
+    console.log(wrongAnswersLocal)
+
+  }
   
   return (
     <>
@@ -304,6 +372,50 @@ export default function Home() {
 
       <div className={styles.back}>
         <div className={styles.main}>
+          {(myLanguage > [] && improveLanguage > []) || studyType || category ?  
+            <div className={styles.actionBar}>
+              {actionMenuDrop ?
+                <Button
+                  title={<CloseIcon/>}
+                  buttonType="icon"
+                  color="white"
+                  size="l"
+                  className={styles.actionButton}
+                  onClick={() => setActionMenuDrop(false)}
+                />
+                :
+                <Button
+                  title={<MenuIcon/>}
+                  buttonType="icon"
+                  color="white"
+                  size="l"
+                  className={styles.actionButton}
+                  onClick={() => setActionMenuDrop(true)}
+                />
+              }
+
+              {actionMenuDrop ?
+                <div className={styles.actionButtonList}>
+                  <ul>
+                    {(myLanguage > [] && improveLanguage > []) ?
+                      <li onClick={() => changeScreen('selectLanguage')}>Select Language</li>
+                      :false
+                    }
+                    {studyType ?
+                      <li onClick={() => changeScreen('studyType')}>Select Study Type</li>
+                      :false
+                    }
+                    {category ?
+                      <li onClick={() => changeScreen('category')}>Select Category</li>
+                      :false
+                    }
+                  </ul>
+                </div>
+                : false
+              }
+            </div>
+            : false
+          }
 
           {screenSelectLanguage ? 
             <div className={styles.screenSelectLanguage}>
@@ -385,15 +497,28 @@ export default function Home() {
             <div className={styles.screenSelectStudyType}>
               <div className={styles.screenSelectStudyType_selectCards}>
                 <div className={styles.screenSelectStudyType_selectCardCover}>
-                  <div className={styles.screenSelectStudyType_selectCard} style={{backgroundColor:'#d5d5d5', cursor:'default'}}>
-                    Learn 
+                  {studyType == 'learn' ?
+                    <div className={styles.screenSelectStudyType_selectCard +' '+ styles.active} style={{backgroundColor:'#d5d5d5', cursor:'default'}} onClick={(e) => setStudyTypes(e, 'test')}>
+                    Learn
                     <small>(soon)</small>
-                  </div>
+                    </div>
+                    : 
+                    <div className={styles.screenSelectStudyType_selectCard} style={{backgroundColor:'#d5d5d5', cursor:'default'}} onClick={(e) => setStudyTypes(e, 'test')}>
+                    Learn
+                    <small>(soon)</small>
+                    </div>
+                  }
                 </div>
                 <div className={styles.screenSelectStudyType_selectCardCover}>
-                  <div className={styles.screenSelectStudyType_selectCard} onClick={(e) => setStudyTypes(e, 'test')}>
+                  {studyType == 'test' ?
+                    <div className={styles.screenSelectStudyType_selectCard +' '+ styles.active} onClick={(e) => setStudyTypes(e, 'test')}>
                     Test
-                  </div>
+                    </div>
+                    : 
+                    <div className={styles.screenSelectStudyType_selectCard} onClick={(e) => setStudyTypes(e, 'test')}>
+                    Test
+                    </div>
+                  }
                 </div>
               </div>
 
@@ -410,8 +535,8 @@ export default function Home() {
               <ul className={styles.screenSelectCategory_categoryList}>
 
                 {allCategories ?
-                  allCategories.map((category, i) => 
-                    <li key={i} className={styles.screenSelectCategory_categoryListLi} onClick={() => setCategoryAndMove(category.name)}>{category.name}</li>
+                  allCategories.map((cat, i) => 
+                    <li key={i} className={styles.screenSelectCategory_categoryListLi} onClick={() => setCategoryAndMove(cat.name)}>{cat.name}</li>
                   )
                   : <Loader type="TailSpin" color="#aaa" height={25} width={25}/>
                 }
@@ -434,16 +559,6 @@ export default function Home() {
 
           {screenTest ? 
             <div id="screenTest">
-              <div className={styles.actionBar}>
-                <Button
-                  title={<MenuIcon/>}
-                  buttonType="icon"
-                  color="white"
-                  size="l"
-                  className={styles.menuButton}
-                />
-              </div>
-
               <div className={styles.scoreboardCard}>
                 <div className={styles.sbPartCover}>
                   <div className={styles.sbPart}>
@@ -481,8 +596,31 @@ export default function Home() {
                 }
               </div>
               
-              <Button title="Continue" className={styles.button} buttonType="primary" onClick={()=>continueButtonClick()}/>
+              <Button title="Continue" className={styles.button} buttonType="primary" disabled onClick={()=>continueButtonClick()}/>
             </div> 
+            : false
+          }
+
+          {screenEndOfTest ?
+            <div className="screenEndOfTest">
+              <div className={styles.screenEndOfTest_endOfTest}>
+                <div className={styles.screenEndOfTest_answersCards}>
+                  <div className={styles.screenEndOfTest_answersCardCover}>
+                    <div className={styles.screenEndOfTest_answersCard}>
+                      <h3 className={styles.screenEndOfTest_answersCardTitle}>Correct Answers</h3>
+                      <p className={styles.screenEndOfTest_answersCardResult +' '+ styles.correct}>{correctAnswers.length}</p>
+                    </div>
+                  </div>
+
+                  <div className={styles.screenEndOfTest_answersCardCover}>
+                    <div className={styles.screenEndOfTest_answersCard}>
+                      <h3 className={styles.screenEndOfTest_answersCardTitle}>Wrong Answers</h3>
+                      <p className={styles.screenEndOfTest_answersCardResult +' '+ styles.wrong}>{wrongAnswers.length}</p> 
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
             : false
           }
           

@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const PostSchema = mongoose.Schema({
+const RecordSchema = mongoose.Schema({
   name:{
     type:String,
     required:true,
@@ -8,4 +8,4 @@ const PostSchema = mongoose.Schema({
   }
 })
 
-module.exports = mongoose.model('ImproveLanguageCategories', PostSchema)
+module.exports = mongoose.model('ImproveLanguageCategories', RecordSchema)

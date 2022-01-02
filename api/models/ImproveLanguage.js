@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const PostSchema = mongoose.Schema({
+const RecordSchema = mongoose.Schema({
   tr:{
     type:String,
     required:true,
@@ -22,4 +22,4 @@ const PostSchema = mongoose.Schema({
   }
 })
 
-module.exports = mongoose.model('ImproveLanguage', PostSchema)
+module.exports = mongoose.model('ImproveLanguage', RecordSchema)
