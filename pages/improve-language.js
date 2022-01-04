@@ -175,6 +175,7 @@ export default function Home() {
     } else if (studyType == 'test'){
       getAllData(cat)
       setScreenTest(1)
+      setAnsweredQuestions([])
     }
     
   }
@@ -538,7 +539,7 @@ export default function Home() {
                   allCategories.map((cat, i) => 
                     <li key={i} className={styles.screenSelectCategory_categoryListLi} onClick={() => setCategoryAndMove(cat.name)}>{cat.name}</li>
                   )
-                  : <Loader type="TailSpin" color="#aaa" height={25} width={25}/>
+                  : <Loader type="TailSpin" color="#fff" height={25} width={25}/>
                 }
                 
                 {/* <li className={styles.screenSelectCategory_categoryListLi}>Family</li>

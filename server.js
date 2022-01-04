@@ -1,13 +1,14 @@
 const express = require('express')
 const next = require('next')
 const mongoose = require('mongoose')
-require('dotenv/config')
+require('dotenv').config({ path: '.env' });
 const dev = process.env.NODE_ENV !== 'production'
 
 const app = next({ dev })
 const handle = app.getRequestHandler()
 const port = process.env.SERVER_PORT || 3000
 
+console.log(process.env.DATABASE)
 mongoose.connect(process.env.DATABASE,{
   useNewUrlParser: true,
   useUnifiedTopology: true,
