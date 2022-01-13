@@ -3,7 +3,8 @@ import Head from "next/head";
 import styles from "../styles/Improve-language.module.scss";
 import stylesButton from "../styles/Button.module.scss";
 import Button from "../components/Button";
-import MenuIcon from '@mui/icons-material/Menu';
+import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
+import StopIcon from '@mui/icons-material/Stop';
 import CloseIcon from '@mui/icons-material/Close';
 import Loader from "react-loader-spinner";
 import axios from "axios";
@@ -33,6 +34,8 @@ export default function Home() {
 
   const [screenEndOfTest, setScreenEndOfTest] = useState(0)
 
+  const [screenTestDetails, setScreenTestDetails] = useState(0)
+  const [testDetailsOf, setTestDetailsOf] = useState()
   
   const [allWords, setAllWords] = useState([])
   const [neverAskedWords, setNeverAskedWords] = useState([])
@@ -49,6 +52,7 @@ export default function Home() {
     setScreenLearn(0)
     setScreenTest(0)
     setScreenEndOfTest(0)
+    setScreenTestDetails(0)
 
     if(screenName == 'selectLanguage'){
       setScreenSelectLanguage(1)
@@ -56,13 +60,7 @@ export default function Home() {
       setScreenSelectStudyType(1)
     } else if(screenName == 'category'){
       setScreenSelectCategory(1)
-    } else if(screenName == 'learn'){
-      setScreenLearn(1)
-    } else if(screenName == 'test'){
-      setScreenTest(1)
-    } else if(screenName == 'endOfTest'){
-      setScreenEndOfTest(1)
-    }
+    } 
 
     setActionMenuDrop(false)
   }
@@ -246,7 +244,7 @@ export default function Home() {
       
     } else {
 
-      endOfTest()
+      endStudy()
       
     }
 
@@ -288,31 +286,26 @@ export default function Home() {
 
     if(document.getElementsByClassName(styles.selectedAnswer)){
 
-      const questionWord = document.getElementsByClassName(styles.questionWord)
       const selectedWord = document.getElementsByClassName(styles.selectedAnswer)
-
-      const questionWordId = questionWord[0].getAttribute('wordId')
       const selectedWordId = selectedWord[0].getAttribute('wordId')
-      
-      let result = false
-      
-      if(selectedWord.length > 0){
-        if(questionWordId === selectedWordId){
-          result = true
-        } else{
-          result = false
-        }
-      }
 
+      addAnsweredQuestion(question, answers, selectedWordId)
       continueButtonStatus(false)
       newQuestionAndAnswers()
-      addAnsweredQuestion(question, answers, selectedWordId, result)
       
     }
 
   }
 
-  function addAnsweredQuestion(question, answers, answer, result){
+  function addAnsweredQuestion(question, answers, answer){
+
+    let result = false
+      
+    if(question._id === answer){
+      result = true
+    } else{
+      result = false
+    }
 
     const newAnswer = {
       "questionId":question._id,
@@ -327,17 +320,23 @@ export default function Home() {
       "result":result
     }
 
-    let temporaryList = answeredQuestions
+    let temporaryList = [...answeredQuestions]
     temporaryList.push(newAnswer)
     setAnsweredQuestions(temporaryList)
 
   }
 
-  function endOfTest(){
+  function endStudy(){
 
-    setScreenTest(0)
-    setScreenEndOfTest(1)
-    calculateAnsweredQuestions()
+    if(studyType == 'learn'){
+
+    } else if (studyType == 'test'){
+
+      calculateAnsweredQuestions()
+      setScreenTest(0)
+      setScreenEndOfTest(1)
+      
+    }
     
   }
 
@@ -349,17 +348,43 @@ export default function Home() {
 
     for (let i = 0; i < answeredQuestions.length; i++) {
       if(answeredQuestions[i].result == true){
-        correctAnswersLocal[i] = answeredQuestions[i]
+        correctAnswersLocal.push(answeredQuestions[i])
       } else{
-        wrongAnswersLocal[i] = answeredQuestions[i]
+        wrongAnswersLocal.push(answeredQuestions[i])
       }
     }
 
     setCorrectAnswers(correctAnswersLocal)
     setWrongAnswers(wrongAnswersLocal)
 
-    console.log(correctAnswersLocal)
-    console.log(wrongAnswersLocal)
+  }
+
+  function showTestDetails(move){
+
+    setScreenEndOfTest(0)
+    setScreenTestDetails(1)
+
+    if(move == 'correct'){
+      setTestDetailsOf('correct')
+    } else if(move == 'wrong'){
+      setTestDetailsOf('wrong')
+    }
+    
+  }
+
+  function getOneWord(id){
+    
+    console.log(`${process.env.NEXT_PUBLIC_API_IMPROVE_LANGUAGE_WORDS}/${id}`)
+    
+    axios
+    .get(`${process.env.NEXT_PUBLIC_API_IMPROVE_LANGUAGE_WORDS}/${id}`)
+    .then(res => {
+      return res.data
+      console.log(res.data)
+    })
+    .catch(err =>{
+      console.log(err)
+    })
 
   }
   
@@ -373,50 +398,49 @@ export default function Home() {
 
       <div className={styles.back}>
         <div className={styles.main}>
-          {(myLanguage > [] && improveLanguage > []) || studyType || category ?  
-            <div className={styles.actionBar}>
-              {actionMenuDrop ?
-                <Button
-                  title={<CloseIcon/>}
-                  buttonType="icon"
-                  color="white"
-                  size="l"
-                  className={styles.actionButton}
-                  onClick={() => setActionMenuDrop(false)}
-                />
-                :
-                <Button
-                  title={<MenuIcon/>}
-                  buttonType="icon"
-                  color="white"
-                  size="l"
-                  className={styles.actionButton}
-                  onClick={() => setActionMenuDrop(true)}
-                />
-              }
+          <div className={styles.actionBar}>
+            {screenTest || screenLearn ? 
+              <Button
+                title={<StopIcon/>}
+                buttonType="icon"
+                color="white"
+                size="l"
+                className={styles.stopTestButton}
+                onClick={() => endStudy()}
+              />
+              : false
+            }
+            {(myLanguage > [] && improveLanguage > []) || studyType || category ?  
+              <>
+                {actionMenuDrop ?
+                  <Button title={<CloseIcon/>} buttonType="icon" color="white" size="l" className={styles.actionButton} onClick={() => setActionMenuDrop(false)}/>
+                  :
+                  <Button title={<FormatListBulletedIcon/>} buttonType="icon" color="white" size="l" className={styles.actionButton} onClick={() => setActionMenuDrop(true)}/>
+                }
 
-              {actionMenuDrop ?
-                <div className={styles.actionButtonList}>
-                  <ul>
-                    {(myLanguage > [] && improveLanguage > []) ?
-                      <li onClick={() => changeScreen('selectLanguage')}>Select Language</li>
-                      :false
-                    }
-                    {studyType ?
-                      <li onClick={() => changeScreen('studyType')}>Select Study Type</li>
-                      :false
-                    }
-                    {category ?
-                      <li onClick={() => changeScreen('category')}>Select Category</li>
-                      :false
-                    }
-                  </ul>
-                </div>
-                : false
-              }
-            </div>
-            : false
-          }
+                {actionMenuDrop ?
+                  <div className={styles.actionButtonList}>
+                    <ul>
+                      {(myLanguage > [] && improveLanguage > []) ?
+                        <li onClick={() => changeScreen('selectLanguage')}>Language</li>
+                        :false
+                      }
+                      {studyType ?
+                        <li onClick={() => changeScreen('studyType')}>Study Type</li>
+                        :false
+                      }
+                      {category ?
+                        <li onClick={() => changeScreen('category')}>Category</li>
+                        :false
+                      }
+                    </ul>
+                  </div>
+                  : false
+                }
+              </>
+              : false
+            }
+          </div>
 
           {screenSelectLanguage ? 
             <div className={styles.screenSelectLanguage}>
@@ -607,20 +631,71 @@ export default function Home() {
               <div className={styles.screenEndOfTest_endOfTest}>
                 <div className={styles.screenEndOfTest_answersCards}>
                   <div className={styles.screenEndOfTest_answersCardCover}>
-                    <div className={styles.screenEndOfTest_answersCard}>
+                    <div className={styles.screenEndOfTest_answersCard} onClick={() => showTestDetails('correct')}>
                       <h3 className={styles.screenEndOfTest_answersCardTitle}>Correct Answers</h3>
-                      <p className={styles.screenEndOfTest_answersCardResult +' '+ styles.correct}>{correctAnswers.length}</p>
+                      <p className={styles.screenEndOfTest_answersCardResult +' '+ styles.correct}>
+                        {correctAnswers.length}
+                      </p>
                     </div>
                   </div>
 
                   <div className={styles.screenEndOfTest_answersCardCover}>
-                    <div className={styles.screenEndOfTest_answersCard}>
+                    <div className={styles.screenEndOfTest_answersCard} onClick={() => showTestDetails('wrong')}>
                       <h3 className={styles.screenEndOfTest_answersCardTitle}>Wrong Answers</h3>
-                      <p className={styles.screenEndOfTest_answersCardResult +' '+ styles.wrong}>{wrongAnswers.length}</p> 
+                      <p className={styles.screenEndOfTest_answersCardResult +' '+ styles.wrong}>
+                        {wrongAnswers.length}
+                      </p> 
                     </div>
                   </div>
                 </div>
               </div>
+            </div>
+            : false
+          }
+
+          {screenTestDetails ?
+            <div className={styles.screenTestDetails}>
+              <ul className={styles.screenTestDetails_answersList}>
+
+                {testDetailsOf == 'wrong' ?
+                  <>
+                    {wrongAnswers ?
+                      wrongAnswers.map((ans, i) => 
+                        <li key={i} className={styles.screenTestDetails_answersListLi} onClick={() => console.log('hit')}>
+                          <div className={styles.screenTestDetails_answersListLiRow}>
+                            <span className={styles.screenTestDetails_answersListLiTitle}>Question:</span>
+                            <span className={styles.screenTestDetails_answersListLiDesc}>{ans.questionId}</span>
+                          </div>
+                          
+                          <div className={styles.screenTestDetails_answersListLiRow}>
+                            <span className={styles.screenTestDetails_answersListLiTitle}>Wrong Answer:</span>
+                            <span className={styles.screenTestDetails_answersListLiWrong}>{ans.questionId}</span>
+                          </div>
+
+                          <div className={styles.screenTestDetails_answersListLiRow}>
+                            <span className={styles.screenTestDetails_answersListLiTitle}>Correct Answer:</span>
+                            <span className={styles.screenTestDetails_answersListLiCorrect}>{ans.questionId}</span>
+                          </div>
+                        </li>
+                      )
+                      : <Loader type="TailSpin" color="#fff" height={25} width={25}/>
+                    }
+                  </>
+                  : false
+                }
+                
+                {/* <li className={styles.screenTestDetails_categoryListLi}>Family</li>
+                <div className={styles.screenTestDetails_categoryListDrop}>
+                  <li className={styles.screenTestDetails_categoryListLi} onClick={(e) => showCategoryListDrop(e)}>University <KeyboardArrowDownIcon/></li>
+                  <div className={styles.screenTestDetails_categoryListDropBody}>
+                    <li className={styles.screenTestDetails_categoryListDropLi}>All</li>
+                    <li className={styles.screenTestDetails_categoryListDropLi}>University Registration</li>
+                    <li className={styles.screenTestDetails_categoryListDropLi}>University Math</li>
+                    <li className={styles.screenTestDetails_categoryListDropLi}>University Physics</li>
+                    <li className={styles.screenSelectCategory_categoryListDropLi}>University Chemistry</li>
+                  </div>
+                </div> */}
+              </ul>
             </div>
             : false
           }

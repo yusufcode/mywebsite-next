@@ -7,7 +7,7 @@ export default function Home() {
     <>
       <Head>
         <title>Yusuf Code</title>
-        <meta name="description" content="Hello! I'm Yusuf, full-stack web developer."/>
+        <meta name="description" content="Hello! I'm Yusuf, student of SPbPU and Full-Stack web developer."/>
         <meta name="keywords" content="yusufcode, yusuf code, web developer, full stack web developer, freelance web developer"/>
       </Head>
 

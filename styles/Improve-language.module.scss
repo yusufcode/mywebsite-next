@@ -1,26 +1,31 @@
 .back{
-  margin: -10px;
-  min-height: calc(100vh - 85px);
-  padding: 10px;
-  background: rgb(130,103,255);
-  background: linear-gradient(135deg, rgba(130,103,255,1) 0%, rgba(0,0,121,1) 75%);
+  margin: auto;
+  max-width: 600px;
 }
 
 .main{
   text-align: center;
   font-family: 'Ubuntu', sans-serif;
-  max-width: 600px;
-  margin: auto;
+  margin: -10px;
+  padding: 0 5px;
+  background: rgb(130,103,255);
+  background: linear-gradient(135deg, rgba(130,103,255,1) 0%, rgba(0,0,121,1) 75%);
+  height: calc(100vh - 85px);
 }
 
 //ACTION BAR
 .actionBar{
-  display: flex;
   position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: right;
+  justify-items: right;
+}
+
+.stopTestButton{
 }
 
 .actionButton{
-  margin-left: auto;
 }
 
 .actionButtonList{
@@ -157,7 +162,7 @@
 
 .screenSelectStudyType_selectCards{
   display: flex;
-  width: 100vw;
+  width: 100%;
   max-width: 600px;
 
   position: absolute;
@@ -200,8 +205,7 @@
 
 //SCREEN SELECT CATEGORY
 .screenSelectCategory{
-  background-color: white;
-  margin: 0 -10px;
+  
 }
 
 .screenSelectCategory_categoryList{
@@ -213,10 +217,13 @@
 
 .screenSelectCategory_categoryListLi{
   padding: 10px;
-  border-bottom: 1px solid #d5d5d5;
+  padding-left: 15px;
   display: flex;
   text-transform: capitalize;
   cursor: pointer;
+  background-color: white;
+  margin-bottom: 2.5px;
+  border-radius: 25px;
 
   & svg{
     width: 20px;
@@ -256,11 +263,11 @@
 
 .scoreboardCard{
   display: flex;
-  margin: 0 -5px 10px -5px;
+  margin: 0 -2.5px 5px -2.5px;
 }
 
 .sbPartCover{
-  padding: 5px;
+  padding: 0 2.5px;
   width: 33.33%;
 }
 
@@ -288,7 +295,6 @@
 }
 
 .questionCard{
-  margin-bottom: 10px;
   display: flex;
   flex-direction: column;
   box-shadow: 0 5px 10px -10px #000;
@@ -298,7 +304,6 @@
 }
 
 .answerCard{
-  margin-bottom: 10px;
   display: flex;
   flex-direction: column;
   border-radius: 15px;
@@ -341,6 +346,10 @@
   background-color: white;
   height: 40px;
   transition: 0.2s all;
+
+  &:last-child{
+    margin:0;
+  }
 }
 
 .selectedAnswer{
@@ -356,29 +365,37 @@
 
 //SCREEN END OF TEST
 .screenEndOfTest_endOfTest{
-  background-color: white;
+  height: calc(100vh - 145px);
+  position: relative;
 }
 
 .screenEndOfTest_answersCards{
   display: flex;
-  flex-direction: row;
   width: 100%;
+  max-width: 600px;
+
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -30%);
 }
 
 .screenEndOfTest_answersCardCover{
   width: 50%;
-  padding: 10px;
+  padding: 0 5px;
 }
 
 .screenEndOfTest_answersCard{
   height: 125px;
-  border: 1px solid #d5d5d5;
-  border-radius: 25px;
+  width: 100%;
+  background-color: white;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-content: center;
+  border-radius: 25px;
   cursor: pointer;
+  user-select: none;
 }
 
 .screenEndOfTest_answersCardTitle{
@@ -397,4 +414,80 @@
   &.wrong{
     color: rgb(179, 0, 0);
   }
+}
+
+//SCREEN TEST DETAILS
+.screenTestDetails{
+  
+}
+
+.screenTestDetails_answersList{
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  text-align: left;
+}
+
+.screenTestDetails_answersListLi{
+  padding: 10px;
+  padding-left: 15px;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  background-color: white;
+  margin-bottom: 2.5px;
+  border-radius: 25px;
+  
+  & svg{
+    width: 20px;
+    height: 20px;
+    margin-left: auto;
+    transition: 0.2s all;
+  }
+
+  & .screenTestDetails_answersListLiRow{
+    display: flex;
+    flex-direction: row;
+    text-transform: capitalize;
+  }
+
+  & .screenTestDetails_answersListLiTitle{
+    font-weight: 500;
+    padding-right: 5px;
+  }
+
+  & .screenTestDetails_answersListLiCorrect{
+    color: rgb(25, 177, 25);
+  }
+
+  & .screenTestDetails_answersListLiWrong{
+    color: rgb(179, 0, 0);
+  }
+
+}
+
+.screenTestDetails_answersListDrop{
+  display: block;
+}
+
+.screenTestDetails_answersListDropBody{
+  background-color: #fbfbfb;
+  display: none;
+}
+
+.activeDrop{
+
+  & .screenTestDetails_answersListLi svg{
+    transform: rotate(180deg);
+  }
+
+  & .screenTestDetails_answersListDropBody{
+    display: block;
+  }
+}
+
+.screenTestDetails_answersListDropLi{
+  padding: 5px 15px;
+  border-bottom: 1px solid #e1e1e1;
+  text-transform: capitalize;
 }

@@ -10,7 +10,7 @@ const skillsList = [
   "Html (9/10) [2 years]",
   "Css, Sass, Scss (9/10) [2 years]",
   "JavaScript (7/10) [1.5 year]",
-  "Node.js, Rest (6/10) [8 months]",
+  "Node.js, Rest Api (6/10) [8 months]",
   "React.js, Next.js (4/10) [3 month]"
 ]
 
@@ -19,7 +19,8 @@ const doList = [
   "Do the 1st very fast.",
   "Careful on UI/UX issues.",
   "Coding by considiring SEO rules.",
-  "Fully responsive designs with all devices."
+  "Fully responsive designs with all devices.",
+  "Converting websites to React.js technology."
 ]
 
 const goalsList = [
@@ -40,7 +41,7 @@ export default function Home() {
     <>
       <Head>
         <title>CV (Resume) - Yusuf Code</title>
-        <meta name="description" content="Hello! I'm Yusuf, full-stack web developer."/>
+        <meta name="description" content="Hello! I'm Yusuf. I develop Full-Stack websites for over 2 years but more dominant on Front-End."/>
         <meta name="keywords" content="yusufcode, yusuf code, web developer, full stack web developer, freelance web developer"/>
       </Head>
 
@@ -48,7 +49,7 @@ export default function Home() {
         <Header title="Personal Info" />
 
         <div className={styles.sectionBody}>
-          <TitleText title="Name Surname" text="Yusuf Akbaba" />
+          <TitleText title="Full Name" text="Yusuf Akbaba" />
           <TitleText title="Age" text="22" />
           <TitleText title="Location" text="St. Petersburg, Russia" />
         </div>
@@ -81,8 +82,8 @@ export default function Home() {
         <Header title="Contact" />
 
         <div className={styles.sectionBody}>
-          <TitleText title="E-Mail" text="yusuf1akbaba@gmail.com" linkMail/>
-          <TitleText title="Phone Number" text="+7 (931) 100 7111" linkTel/>
+          <TitleText title="E-Mail" text="yusuf1code@gmail.com" linkMail/>
+          <TitleText title="Phone" text="It's not your lucky day :)"/>
         </div>
       </div>
       
