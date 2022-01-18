@@ -1,5 +1,5 @@
 import React from 'react'
-import Image from 'next/image'
+// import Image from 'next/image'
 import styles from '../styles/Logo.module.scss'
 
 export default function Logo({width, height, shadow, quality}) {
@@ -14,7 +14,7 @@ export default function Logo({width, height, shadow, quality}) {
     
     return (
         <div className={className}>
-            <Image 
+            <img 
                 src="/img/logo/logo.png"
                 alt="yusufcode.com"
                 width={width} 
