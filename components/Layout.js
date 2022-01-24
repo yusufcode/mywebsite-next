@@ -5,8 +5,8 @@ import Script from "next/script"
 export default function Layout({ children }) {
 
   const gad = process.env.NEXT_PUBLIC_API_GOOGLE_ADSENSE || 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9732757580085068'
-  const ga1 = process.env.NEXT_PUBLIC_API_GOOGLE_ADSENSE || 'https://www.googletagmanager.com/gtag/js?id=G-E4S3SMK9KN'
-  const ga2 = process.env.NEXT_PUBLIC_API_GOOGLE_ADSENSE || 'G-E4S3SMK9KN'
+  const ga1 = process.env.NEXT_PUBLIC_API_GOOGLE_ANALYTICS || 'https://www.googletagmanager.com/gtag/js?id=G-E4S3SMK9KN'
+  const ga2 = process.env.NEXT_PUBLIC_API_GOOGLE_ANALYTICS_2 || 'G-E4S3SMK9KN'
   
   return (
     <>
