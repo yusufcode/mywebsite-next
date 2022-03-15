@@ -10,13 +10,12 @@ const skillsList = [
   "Html (9/10) [2 years]",
   "Css, Sass, Scss (9/10) [2 years]",
   "JavaScript (7/10) [1.5 year]",
-  "Node.js, Rest Api (6/10) [8 months]",
-  "React.js, Next.js (4/10) [3 month]"
+  "Node.js, Rest Api (6/10) [10 months]",
+  "React.js, Next.js, Context Api (6/10) [5 month]"
 ]
 
 const doList = [
   "Pixel Perfect conversation.",
-  "Do the 1st very fast.",
   "Careful on UI/UX issues.",
   "Coding by considiring SEO rules.",
   "Fully responsive designs with all devices.",
