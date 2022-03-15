@@ -30,7 +30,6 @@ export default function Navbar() {
     const menuItems = [
         {title: "Home", link: "/"},
         {title: "Crypto Calculator", link: "crypto-calculator"},
-        {title: "Improve Language", link: "improve-language"},
         {title: "CV (Resume)", link: "cv-resume"}
     ]
 
