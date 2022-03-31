@@ -50,6 +50,7 @@ export default function Home() {
         <div className={styles.sectionBody}>
           <TitleText title="Full Name" text="Yusuf Akbaba" />
           <TitleText title="Age" text="22" />
+          <TitleText title="Current Location" text="St. Petersburg, Russia" />
         </div>
       </div>
 
