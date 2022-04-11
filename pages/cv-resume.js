@@ -41,7 +41,7 @@ export default function Home() {
     <>
       <Head>
         <title>CV (Resume) - Yusuf Code</title>
-        <meta name="description" content="Hello! I'm Yusuf. I develop Full-Stack websites for over 2 years but more dominant on Front-End."/>
+        <meta name="description" content="Hello! I'm Yusuf. I develop Full-Stack websites for over 2.5 years but more dominant on Front-End."/>
         <meta name="keywords" content="yusufcode, yusuf code, web developer, full stack web developer, freelance web developer"/>
       </Head>
 
@@ -59,7 +59,7 @@ export default function Home() {
         <Header title="Skills" />
 
         <div className={styles.sectionBody}>
-          <SectionDescription text="I develop Full-Stack websites for over 2.5 years but more dominant on Frontend."/>
+          <SectionDescription text="I develop Full-Stack websites for over 2.5 years but more dominant on Front-End."/>
 
           <NumberLiList title="Skills" liArray={skillsList}/>
           <NumberLiList title="What I Do" liArray={doList}/>
