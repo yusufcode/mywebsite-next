@@ -7,25 +7,26 @@ import NumberLiList from "../components/cv/NumberLiList";
 import NumberTitleDescription from "../components/cv/NumberTitleDescription";
 
 const skillsList = [
-  "Html (9/10) [2 years]",
-  "Css, Sass, Scss (9/10) [2 years]",
-  "JavaScript (7/10) [1.5 year]",
-  "Node.js, Rest Api (6/10) [10 months]",
-  "React.js, Next.js, Context Api (6/10) [5 month]"
+  "Html (2.5 years)",
+  "Css (2.5 years)",
+  "JavaScript (2 year)",
+  "Node.js, Rest Api (1 year)",
+  "Sass, Scss (8 months)",
+  "React.js (6 months)",
+  "Context Api (6 months)"
 ]
 
 const doList = [
-  "Pixel Perfect conversation.",
+  "Pixel Perfect conversation.(PSD->HTML,CSS,JS->JSX)",
   "Careful on UI/UX issues.",
-  "Coding by considiring SEO rules.",
-  "Fully responsive designs with all devices.",
-  "Converting websites to React.js technology."
+  "Coding by considiring SEO rules.(Importance of html tags)",
+  "Fully responsive designs with all devices."
 ]
 
 const goalsList = [
   "Become an expert of React. (main goal)",
-  "Develop mobile apps on React Native. (kind of website supporter apps)",
-  "Develop games for mobile and desktop platforms on Unity. (for hobby)"
+  "Develop mobile apps on React Native.(to support website already builded)",
+  "Develop games for mobile and desktop platforms on Unity.(personal entertainment)"
 ]
 
 const titleAndDescriptionList = [
@@ -58,7 +59,7 @@ export default function Home() {
         <Header title="Skills" />
 
         <div className={styles.sectionBody}>
-          <SectionDescription text="I develop Full-Stack websites for over 2 years but more dominant on Front-End."/>
+          <SectionDescription text="I develop Full-Stack websites for over 2.5 years but more dominant on Frontend."/>
 
           <NumberLiList title="Skills" liArray={skillsList}/>
           <NumberLiList title="What I Do" liArray={doList}/>
