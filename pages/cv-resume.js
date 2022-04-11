@@ -12,8 +12,7 @@ const skillsList = [
   "JavaScript (2 year)",
   "Node.js, Rest Api (1 year)",
   "Sass, Scss (8 months)",
-  "React.js, Styled Components (6 months)",
-  "Context Api (6 months)"
+  "React.js, Styled Components, Context Api (6 months)"
 ]
 
 const doList = [
