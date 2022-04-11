@@ -12,21 +12,21 @@ const skillsList = [
   "JavaScript (2 year)",
   "Node.js, Rest Api (1 year)",
   "Sass, Scss (8 months)",
-  "React.js (6 months)",
+  "React.js, Styled Components (6 months)",
   "Context Api (6 months)"
 ]
 
 const doList = [
-  "Pixel Perfect conversation.(PSD->HTML,CSS,JS->JSX)",
+  "Pixel Perfect conversation. (PSD->HTML,CSS,JS->JSX)",
   "Careful on UI/UX issues.",
-  "Coding by considiring SEO rules.(Importance of html tags)",
+  "Coding by considiring SEO rules. (Importance of html tags)",
   "Fully responsive designs with all devices."
 ]
 
 const goalsList = [
   "Become an expert of React. (main goal)",
-  "Develop mobile apps on React Native.(to support website already builded)",
-  "Develop games for mobile and desktop platforms on Unity.(personal entertainment)"
+  "Develop mobile apps on React Native. (to support website already builded)",
+  "Develop games for mobile and desktop platforms on Unity. (personal entertainment)"
 ]
 
 const titleAndDescriptionList = [
