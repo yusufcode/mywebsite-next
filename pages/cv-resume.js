@@ -6,13 +6,19 @@ import SectionDescription from "../components/cv/SectionDescription";
 import NumberLiList from "../components/cv/NumberLiList";
 import NumberTitleDescription from "../components/cv/NumberTitleDescription";
 
-const technologiesList = [
+const usingTechnologiesList = [
   "Html (2.5 years)",
   "Css (2.5 years)",
-  "JavaScript (2 year)",
+  "Bootstrap (2.5 years)",
+  "JavaScript (2 years)",
   "Node.js, Rest Api (1 year)",
   "Sass, Scss (8 months)",
   "React.js, Styled Components, Context Api (6 months)"
+]
+
+const usedTechnologiesList = [
+  "ASP.NET MVC (3 months)",
+  "PHP (1 year)",
 ]
 
 const doList = [
@@ -70,7 +76,8 @@ export default function Home() {
         <div className={styles.sectionBody}>
           <SectionDescription text="I develop Full-Stack websites for over 2.5 years but more dominant on Front-End."/>
 
-          <NumberLiList title="Technologies I Use" liArray={technologiesList}/>
+          <NumberLiList title="Technologies I Use" liArray={usingTechnologiesList}/>
+          <NumberLiList title="Technologies I Used" liArray={usedTechnologiesList}/>
           <NumberLiList title="What I Do" liArray={doList}/>
           <NumberLiList title="Goals" liArray={goalsList}/>
           <NumberLiList title="Hobbies" liArray={hobbiesList}/>
