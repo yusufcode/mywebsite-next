@@ -6,7 +6,7 @@ import SectionDescription from "../components/cv/SectionDescription";
 import NumberLiList from "../components/cv/NumberLiList";
 import NumberTitleDescription from "../components/cv/NumberTitleDescription";
 
-const skillsList = [
+const technologiesList = [
   "Html (2.5 years)",
   "Css (2.5 years)",
   "JavaScript (2 year)",
@@ -31,6 +31,12 @@ const goalsList = [
 const hobbiesList = [
   "I play chess. It helps me to make better my steps in the future.",
   "I watch Formula 1. It is very interesting for me to see what engineers can make and race engineers can set a plan. "
+]
+
+const languagesList = [
+  "Turkish: Main",
+  "English: B2",
+  "Russian: B1"
 ]
 
 const titleAndDescriptionList = [
@@ -64,10 +70,11 @@ export default function Home() {
         <div className={styles.sectionBody}>
           <SectionDescription text="I develop Full-Stack websites for over 2.5 years but more dominant on Front-End."/>
 
-          <NumberLiList title="Technologies I Use" liArray={skillsList}/>
+          <NumberLiList title="Technologies I Use" liArray={technologiesList}/>
           <NumberLiList title="What I Do" liArray={doList}/>
           <NumberLiList title="Goals" liArray={goalsList}/>
           <NumberLiList title="Hobbies" liArray={hobbiesList}/>
+          <NumberLiList title="Languages" liArray={languagesList}/>
 
         </div>
       </div>
