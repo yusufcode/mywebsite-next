@@ -28,6 +28,11 @@ const goalsList = [
   "Develop games for mobile and desktop platforms on Unity. (personal entertainment)"
 ]
 
+const hobbiesList = [
+  "I play chess. It helps me to make better my steps in the future.",
+  "I watch Formula 1. It is very interesting for me to see what engineers can make and race engineers can set a plan. "
+]
+
 const titleAndDescriptionList = [
   {title: "Narcade", description: "I have worked in this one of most important mobile game company in Turkey as a Software Developer. The best thing I do in this company is Info Transfer software. I’ve created a software. Thanks to this software, an employee can finish the job in 1 minute instead of 3 work days."},
   {title: "Global Ekspress", description: "I have worked in this C2C E-Commerce Parketplace as a Junior Front-End Web Developer. I’ve designed lots of website elements. Sometimes from scratch, sometimes from PSD to HTML, CSS, JS. This was the first company that I worked in the job about Web Technologies. I improved my Pixel Perfect design skill here."},
@@ -54,14 +59,15 @@ export default function Home() {
       </div>
 
       <div className={styles.section}>
-        <Header title="Skills" />
+        <Header title="About Me" />
 
         <div className={styles.sectionBody}>
           <SectionDescription text="I develop Full-Stack websites for over 2.5 years but more dominant on Front-End."/>
 
-          <NumberLiList title="Skills" liArray={skillsList}/>
+          <NumberLiList title="Technologies I Use" liArray={skillsList}/>
           <NumberLiList title="What I Do" liArray={doList}/>
           <NumberLiList title="Goals" liArray={goalsList}/>
+          <NumberLiList title="Hobbies" liArray={hobbiesList}/>
 
         </div>
       </div>
