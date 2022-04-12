@@ -29,12 +29,12 @@ const goalsList = [
 ]
 
 const hobbiesList = [
-  "I play chess. It helps me to make better my steps in the future.",
+  "I play chess. It helps me to make my steps better in the future.",
   "I watch Formula 1. It is very interesting for me to see what engineers can make and race engineers can set a plan. "
 ]
 
 const languagesList = [
-  "Turkish: Main",
+  "Turkish: Native",
   "English: B2",
   "Russian: B1"
 ]
