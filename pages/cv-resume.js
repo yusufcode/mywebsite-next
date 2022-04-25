@@ -22,21 +22,21 @@ const usedTechnologiesList = [
 ]
 
 const doList = [
-  "Pixel Perfect conversation. (PSD->HTML,CSS,JS->JSX)",
+  "Pixel Perfect conversion. Creating website templates from scratch. (PSD->HTML,CSS,JS->JSX)",
   "Careful on UI/UX issues.",
   "Coding by considiring SEO rules. (Importance of html tags)",
   "Fully responsive designs with all devices."
 ]
 
 const goalsList = [
-  "Become an expert of React. (main goal)",
-  "Develop mobile apps on React Native. (to support website already builded)",
-  "Develop games for mobile and desktop platforms on Unity. (personal entertainment)"
+  "Become an expert of React. (Main goal)",
+  "Develop mobile apps on React Native. (To support website already created)",
+  "Develop games for mobile and desktop platforms on Unity. (Personal entertainment)"
 ]
 
 const hobbiesList = [
   "I play chess. It helps me to make my steps better in the future.",
-  "I watch Formula 1. It is very interesting for me to see what engineers can make and how race engineers can set a plan."
+  "I watch Formula 1. It is very interesting for me to see what engineers can make and how race engineers can set a plan in diffirent situations."
 ]
 
 const languagesList = [
@@ -58,7 +58,7 @@ export default function Home() {
       <Head>
         <title>CV (Resume) - Yusuf Code</title>
         <meta name="description" content="Hello! I'm Yusuf. I develop Full-Stack websites for over 2.5 years but more dominant on Front-End."/>
-        <meta name="keywords" content="yusufcode, yusuf code, web developer, full stack web developer, freelance web developer"/>
+        <meta name="keywords" content="yusufcode, yusuf code, web developer, full stack web developer, freelance web developer, cv, resume"/>
       </Head>
 
       <div className={styles.section}>
@@ -102,6 +102,7 @@ export default function Home() {
         <div className={styles.sectionBody}>
           <TitleText title="E-Mail" text="yusuf1code@gmail.com" linkMail/>
           <TitleText title="Phone" text="It's not your lucky day :)"/>
+          <TitleText title="LinkedIn" text="www.linkedin.com/in/yusufakbaba" linkWebsite/>
         </div>
       </div>
       
