@@ -49,7 +49,7 @@ const titleAndDescriptionList = [
   {title: "Narcade", description: "I have worked in this one of most important mobile game company in Turkey as a Software Developer. The best thing I do in this company is a software which calls Info Transfer. Thanks to this software, an employee can finish the job in 1 minute instead of 3 or more work days."},
   {title: "Global Ekspress", description: "I have worked in this C2C E-Commerce Parketplace as a Junior Frontend Web Developer. I’ve designed lots of website parts and elements. This was the first company that I worked in which works about web technologies. I improved my Pixel Perfect design skill here."},
   {title: "Blacks Creative", description: "I've worked in this web agency as a Frontend Web Developer. I designed a lot of web templates. My best achievement in this company is designing an e-commerce web template in only a day. I have improved my fast coding skills here."},
-  {title: "Melexsoft", description: I have worked in this NFT and BlockChain creator company as a Frontend Web Developer. I've designed huge websites and web templates from scratch. I've improved my JS skills here."}
+  {title: "Melexsoft", description: "I have worked in this NFT and BlockChain creator company as a Frontend Web Developer. I've designed huge websites and web templates from scratch. I've improved my JS skills here."}
 ]
 
 export default function Home() {
