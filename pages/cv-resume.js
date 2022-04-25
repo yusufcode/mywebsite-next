@@ -102,7 +102,7 @@ export default function Home() {
         <div className={styles.sectionBody}>
           <TitleText title="E-Mail" text="yusuf1code@gmail.com" linkMail/>
           <TitleText title="Phone" text="It's not your lucky day :)"/>
-          <TitleText title="LinkedIn" text="www.linkedin.com/in/yusufakbaba" linkWebsite/>
+          <TitleText title="LinkedIn" text="linkedin.com/yusufakbaba" linkLinkedin/>
         </div>
       </div>
       
