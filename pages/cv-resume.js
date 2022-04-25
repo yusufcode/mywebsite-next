@@ -100,9 +100,9 @@ export default function Home() {
         <Header title="Contact" />
 
         <div className={styles.sectionBody}>
-          <TitleText title="E-Mail" text="yusuf1code@gmail.com" linkMail/>
+          <TitleText title="E-Mail" text="yusuf1code@gmail.com" linkMail="yusuf1code@gmail.com"/>
           <TitleText title="Phone" text="It's not your lucky day :)"/>
-          <TitleText title="LinkedIn" text="linkedin.com/yusufakbaba" linkLinkedin/>
+          <TitleText title="LinkedIn" text="yusufakbaba" linkLinkedin="https://www.linkedin.com/in/yusufakbaba"/>
         </div>
       </div>
       
